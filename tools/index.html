@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我做的工具 - 邦印 Bangyin</title>
+    <meta name="description" content="邦印开发的工具集合，包括Etsy定价工具等，帮助跨境电商卖家提升效率。">
+    <meta name="keywords" content="邦印工具,Etsy工具,Etsy定价工具,跨境电商工具,AI工具">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .tool-card.available {
+            border-top: 4px solid #27ae60;
+        }
+
+        .tool-card.coming-soon {
+            border-top: 4px solid #95a5a6;
+            opacity: 0.8;
+        }
+
+        .tool-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-available {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-coming {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .tool-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .tool-card p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .tool-features li {
+            padding: 8px 0;
+            color: #666;
+        }
+
+        .tool-features li:before {
+            content: "✓ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .btn-disabled:hover {
+            background: #95a5a6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← 返回主页</a>
+
+        <header>
+            <h1>我做的工具</h1>
+            <p class="subtitle">持续探索和开发中，帮助跨境电商卖家提升效率</p>
+        </header>
+
+        <div class="tools-grid">
+            <!-- Etsy定价工具 -->
+            <div class="tool-card available">
+                <span class="tool-status status-available">可用</span>
+                <h2>Etsy定价工具</h2>
+                <p>帮助Etsy卖家快速计算产品定价，综合考虑成本、利润、平台费用、支付手续费等因素。</p>
+
+                <ul class="tool-features">
+                    <li>自动计算Etsy平台费用</li>
+                    <li>支持多种支付方式手续费</li>
+                    <li>实时显示利润率</li>
+                    <li>支持批量计算</li>
+                </ul>
+
+                <a href="https://etsyprice.bangyin.me" class="btn" target="_blank">使用工具 →</a>
+            </div>
+
+            <!-- AI选品工具 -->
+            <div class="tool-card coming-soon">
+                <span class="tool-status status-coming">开发中</span>
+                <h2>AI选品工具</h2>
+                <p>基于AI的Etsy选品分析工具，帮助卖家发现潜力产品和市场机会。</p>
+
+                <ul class="tool-features">
+                    <li>市场趋势分析</li>
+                    <li>竞品数据分析</li>
+                    <li>关键词热度分析</li>
+                    <li>产品潜力评分</li>
+                </ul>
+
+                <a href="#" class="btn btn-disabled">即将推出</a>
+            </div>
+
+            <!-- AI文案工具 -->
+            <div class="tool-card coming-soon">
+                <span class="tool-status status-coming">开发中</span>
+                <h2>AI文案工具</h2>
+                <p>AI辅助生成Etsy产品标题、描述和标签，提升产品曝光和转化。</p>
+
+                <ul class="tool-features">
+                    <li>SEO优化标题生成</li>
+                    <li>吸引人的产品描述</li>
+                    <li>精准标签推荐</li>
+                    <li>多语言支持</li>
+                </ul>
+
+                <a href="#" class="btn btn-disabled">即将推出</a>
+            </div>
+
+            <!-- 数据分析工具 -->
+            <div class="tool-card coming-soon">
+                <span class="tool-status status-coming">规划中</span>
+                <h2>店铺数据分析</h2>
+                <p>Etsy店铺数据可视化分析工具，帮助卖家了解店铺表现和优化方向。</p>
+
+                <ul class="tool-features">
+                    <li>销售数据可视化</li>
+                    <li>流量来源分析</li>
+                    <li>转化率追踪</li>
+                    <li>竞品对比分析</li>
+                </ul>
+
+                <a href="#" class="btn btn-disabled">规划中</a>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h2 style="margin-bottom: 20px; color: #2c3e50;">关于这些工具</h2>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                这些工具都是我在探索AI赋能跨境电商过程中开发的，基于真实需求和实践经验。
+            </p>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                所有工具都是<strong>免费使用</strong>的，我的目标是帮助更多跨境电商卖家提升效率。
+            </p>
+            <p style="color: #555; line-height: 1.8;">
+                如果你有任何建议或想法，欢迎通过社交媒体联系我。
+            </p>
+        </div>
+
+        <footer>
+            <p>真实分享，不讨好，一切都在路上</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 邦印 Bangyin. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
