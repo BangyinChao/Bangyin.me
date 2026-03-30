@@ -3,267 +3,624 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我做的工具 - 邦印 Bangyin</title>
-    <meta name="description" content="邦印开发的工具集合，包括Etsy定价工具等，帮助跨境电商卖家提升效率。">
-    <meta name="keywords" content="邦印工具,Etsy工具,Etsy定价工具,跨境电商工具,AI工具">
+    <title>ASM Assistant 软件中心 - 邦印 Bangyin</title>
+    <meta name="description" content="ASM Assistant 官方软件中心：版本发布、下载包、安装说明、FAQ、授权权益与更新记录。">
+    <meta name="keywords" content="ASM Assistant,Etsy插件,Etsy客服工具,Etsy订单同步,Etsy定价工具,邦印工具">
     <style>
+        :root {
+            color-scheme: light;
+            --bg: #f6f2ea;
+            --card: rgba(255, 255, 255, 0.94);
+            --text: #18212b;
+            --muted: #667085;
+            --line: rgba(24, 33, 43, 0.09);
+            --accent: #f25f2a;
+            --accent-dark: #d94d1a;
+            --accent-soft: #fff1e8;
+            --ok-bg: #edf7ef;
+            --ok-text: #22663a;
+            --warn-bg: #fff7e8;
+            --warn-text: #9a6700;
+            --chip-bg: #f5f7fa;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(242, 95, 42, 0.14), transparent 34%),
+                linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
+            line-height: 1.65;
         }
 
-        .container {
-            max-width: 1000px;
+        a {
+            color: inherit;
+        }
+
+        .page {
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 28px 20px 72px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 60px;
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .topbar a {
+            text-decoration: none;
+            color: #8b5a3c;
+            font-weight: 600;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .hero-card,
+        .section,
+        .release-card,
+        .faq-item,
+        .rights-card,
+        .step-card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--card);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .hero-card {
+            padding: 28px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: #b54708;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 16px;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #2c3e50;
+            margin: 0 0 12px;
+            font-size: clamp(30px, 5vw, 52px);
+            line-height: 1.04;
+            letter-spacing: -0.03em;
         }
 
-        .subtitle {
-            font-size: 1.1em;
-            color: #7f8c8d;
-            margin-bottom: 20px;
+        .hero-subtitle {
+            margin: 0 0 18px;
+            font-size: 17px;
+            color: #475467;
+            max-width: 720px;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #3498db;
-            text-decoration: none;
+        .hero-note {
+            margin: 0 0 22px;
+            font-size: 14px;
+            color: var(--muted);
         }
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .tool-card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .tool-card.available {
-            border-top: 4px solid #27ae60;
-        }
-
-        .tool-card.coming-soon {
-            border-top: 4px solid #95a5a6;
-            opacity: 0.8;
-        }
-
-        .tool-status {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .status-available {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-coming {
-            background: #e2e3e5;
-            color: #383d41;
-        }
-
-        .tool-card h2 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .tool-card p {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .tool-features {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .tool-features li {
-            padding: 8px 0;
-            color: #666;
-        }
-
-        .tool-features li:before {
-            content: "✓ ";
-            color: #27ae60;
-            font-weight: bold;
-            margin-right: 8px;
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #3498db;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 999px;
+            border: 1px solid transparent;
             text-decoration: none;
-            border-radius: 6px;
-            transition: background 0.3s;
-            font-weight: 500;
+            font-weight: 700;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
         }
 
         .btn:hover {
-            background: #2980b9;
+            transform: translateY(-1px);
         }
 
-        .btn-disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
         }
 
-        .btn-disabled:hover {
-            background: #95a5a6;
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.82);
+            border-color: rgba(24, 33, 43, 0.09);
+            color: var(--text);
+        }
+
+        .hero-stats {
+            display: grid;
+            gap: 14px;
+            align-content: start;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #98a2b3;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .stat-note {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0 0;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: var(--chip-bg);
+            color: #344054;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .main-stack,
+        .side-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .section {
+            padding: 24px;
+        }
+
+        .section h2 {
+            margin: 0 0 14px;
+            font-size: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .section p {
+            margin: 0 0 12px;
+            color: #475467;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .feature-card,
+        .release-card,
+        .rights-card,
+        .step-card {
+            padding: 18px;
+        }
+
+        .feature-card h3,
+        .release-card h3,
+        .rights-card h3,
+        .step-card h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .feature-card p,
+        .release-card p,
+        .rights-card p,
+        .step-card p {
+            margin: 0;
+            color: #475467;
+            font-size: 14px;
+        }
+
+        .bullet-list {
+            margin: 12px 0 0;
+            padding-left: 18px;
+            color: #344054;
+        }
+
+        .bullet-list li + li {
+            margin-top: 8px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 14px;
+        }
+
+        .step-num {
+            display: inline-flex;
+            width: 28px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: #b54708;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .faq-item {
+            padding: 18px 20px;
+        }
+
+        .faq-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .faq-item p {
+            margin: 0;
+            color: #475467;
+            font-size: 14px;
+        }
+
+        .release-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .release-version {
+            display: inline-flex;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: #b54708;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .release-date {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .info-banner {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .mini {
+            font-size: 13px;
+            color: var(--muted);
         }
 
         footer {
+            margin-top: 28px;
             text-align: center;
-            margin-top: 60px;
-            padding: 30px;
-            color: #7f8c8d;
+            color: var(--muted);
+            font-size: 13px;
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
+        @media (max-width: 920px) {
+            .hero,
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                padding: 18px 14px 56px;
             }
 
-            .tools-grid {
+            .hero-card,
+            .section {
+                padding: 20px;
+            }
+
+            .grid-2 {
                 grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            h1 {
+                font-size: 34px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-link">← 返回主页</a>
-
-        <header>
-            <h1>我做的工具</h1>
-            <p class="subtitle">持续探索和开发中，帮助跨境电商卖家提升效率</p>
-        </header>
-
-        <div class="tools-grid">
-            <!-- Etsy定价工具 -->
-            <div class="tool-card available">
-                <span class="tool-status status-available">可用</span>
-                <h2>Etsy定价工具</h2>
-                <p>帮助Etsy卖家快速计算产品定价，综合考虑成本、利润、平台费用、支付手续费等因素。</p>
-
-                <ul class="tool-features">
-                    <li>自动计算Etsy平台费用</li>
-                    <li>支持多种支付方式手续费</li>
-                    <li>实时显示利润率</li>
-                    <li>支持批量计算</li>
-                </ul>
-
-                <a href="https://etsyprice.bangyin.me" class="btn" target="_blank">使用工具 →</a>
+    <div class="page">
+        <div class="topbar">
+            <div class="topbar-nav">
+                <a href="/">邦印主页</a>
+                <a href="/tools">工具列表</a>
+                <a href="https://solo.bangyin.me" target="_blank" rel="noreferrer">探索笔记</a>
             </div>
-
-            <!-- AI选品工具 -->
-            <div class="tool-card coming-soon">
-                <span class="tool-status status-coming">开发中</span>
-                <h2>AI选品工具</h2>
-                <p>基于AI的Etsy选品分析工具，帮助卖家发现潜力产品和市场机会。</p>
-
-                <ul class="tool-features">
-                    <li>市场趋势分析</li>
-                    <li>竞品数据分析</li>
-                    <li>关键词热度分析</li>
-                    <li>产品潜力评分</li>
-                </ul>
-
-                <a href="#" class="btn btn-disabled">即将推出</a>
-            </div>
-
-            <!-- AI文案工具 -->
-            <div class="tool-card coming-soon">
-                <span class="tool-status status-coming">开发中</span>
-                <h2>AI文案工具</h2>
-                <p>AI辅助生成Etsy产品标题、描述和标签，提升产品曝光和转化。</p>
-
-                <ul class="tool-features">
-                    <li>SEO优化标题生成</li>
-                    <li>吸引人的产品描述</li>
-                    <li>精准标签推荐</li>
-                    <li>多语言支持</li>
-                </ul>
-
-                <a href="#" class="btn btn-disabled">即将推出</a>
-            </div>
-
-            <!-- 数据分析工具 -->
-            <div class="tool-card coming-soon">
-                <span class="tool-status status-coming">规划中</span>
-                <h2>店铺数据分析</h2>
-                <p>Etsy店铺数据可视化分析工具，帮助卖家了解店铺表现和优化方向。</p>
-
-                <ul class="tool-features">
-                    <li>销售数据可视化</li>
-                    <li>流量来源分析</li>
-                    <li>转化率追踪</li>
-                    <li>竞品对比分析</li>
-                </ul>
-
-                <a href="#" class="btn btn-disabled">规划中</a>
-            </div>
+            <div class="mini">内部软件中心 · 仅面向已合作学员开放</div>
         </div>
 
-        <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h2 style="margin-bottom: 20px; color: #2c3e50;">关于这些工具</h2>
-            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
-                这些工具都是我在探索AI赋能跨境电商过程中开发的，基于真实需求和实践经验。
-            </p>
-            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
-                所有工具都是<strong>免费使用</strong>的，我的目标是帮助更多跨境电商卖家提升效率。
-            </p>
-            <p style="color: #555; line-height: 1.8;">
-                如果你有任何建议或想法，欢迎通过社交媒体联系我。
-            </p>
+        <section class="hero">
+            <div class="hero-card">
+                <div class="eyebrow">ASM Assistant 官方软件中心</div>
+                <h1>把消息、订单、定价、研究放进一个插件里。</h1>
+                <p class="hero-subtitle">
+                    这是邦印内部学员使用的 Etsy 辅助插件发布页。这里统一提供版本号、下载包、安装说明、FAQ、授权说明和学员权益规则。
+                </p>
+                <p class="hero-note">
+                    核心原则：只围绕你当前打开的 Etsy 页面工作；消息回复只做辅助生成；最终发送必须人工确认。
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">下载最新版 0.7.7</a>
+                    <a class="btn btn-secondary" href="#install">安装说明</a>
+                    <a class="btn btn-secondary" href="#rights">权益说明</a>
+                </div>
+                <div class="chip-row">
+                    <span class="chip">消息助手</span>
+                    <span class="chip">订单同步</span>
+                    <span class="chip">竞对定价</span>
+                    <span class="chip">市场调研</span>
+                    <span class="chip">一套授权码管理整套插件</span>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-card stat">
+                    <div class="stat-label">当前稳定版本</div>
+                    <div class="stat-value">0.7.7</div>
+                    <div class="stat-note">发布日期：2026-03-30</div>
+                </div>
+                <div class="hero-card stat">
+                    <div class="stat-label">安装方式</div>
+                    <div class="stat-value" style="font-size:22px;">下载 ZIP → 解压 → Chrome 加载已解压扩展</div>
+                    <div class="stat-note">适合内部发版和小规模授权，不走公开应用商店。</div>
+                </div>
+                <div class="hero-card stat">
+                    <div class="stat-label">授权方式</div>
+                    <div class="stat-value" style="font-size:22px;">单授权码 + 设备绑定</div>
+                    <div class="stat-note">不同功能模块可以有不同开放周期，但用户只感知一套授权码。</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="content-grid">
+            <div class="main-stack">
+                <section class="section" id="overview">
+                    <h2>这套插件现在解决什么问题</h2>
+                    <div class="grid-2">
+                        <div class="feature-card">
+                            <h3>消息助手</h3>
+                            <p>读取当前对话，提炼待回复买家原文，生成中文理解与建议回复，再由你手动确认发送。</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>订单同步</h3>
+                            <p>只围绕当前打开的 Sold Orders 页面工作，比对新订单与已入库订单，再按你的动作执行同步。</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>竞对定价</h3>
+                            <p>读取当前 listing 的价格、折扣、运费、变体与费率上下文，辅助做逆向拆解和正向定价。</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>市场调研</h3>
+                            <p>读取当前搜索页或统计页的样本与信号，把页面数据沉淀到后台，为后续分析报告做准备。</p>
+                        </div>
+                    </div>
+                    <div class="info-banner">
+                        这不是公开售卖的软件。只有和邦印有过历史合作业务的同学，才有资格申请授权并付费使用。
+                    </div>
+                </section>
+
+                <section class="section" id="install">
+                    <h2>安装与更新</h2>
+                    <div class="steps">
+                        <div class="step-card">
+                            <div class="step-num">1</div>
+                            <h3>下载发布包</h3>
+                            <p>点击页面顶部的“下载最新版 0.7.7”，得到 `asm-assistant-0.7.7.zip`。</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">2</div>
+                            <h3>解压到本地固定目录</h3>
+                            <p>把压缩包解压到你自己容易找到的位置。后续更新时，建议一直使用同一个目录，避免插件路径混乱。</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">3</div>
+                            <h3>Chrome 加载已解压扩展</h3>
+                            <p>打开 `chrome://extensions/`，开启“开发者模式”，点击“加载已解压的扩展程序”，选择刚刚解压后的插件目录。</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">4</div>
+                            <h3>输入授权码并完成激活</h3>
+                            <p>打开插件侧边栏，点击右上角“设置”，输入管理员发给你的授权码。头部状态变成“已授权”并显示截止时间，才算激活成功。</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">5</div>
+                            <h3>后续更新方式</h3>
+                            <p>下载新的 ZIP 覆盖旧目录后，在 `chrome://extensions/` 点击“重新加载”；或者删除旧目录后重新加载新目录。更新后请刷新 Etsy 页面一次。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="usage">
+                    <h2>使用原则</h2>
+                    <ul class="bullet-list">
+                        <li>消息模块只围绕你当前打开的对话工作，不做后台全量抓取。</li>
+                        <li>AI 只负责理解和建议，不会自动帮你发送消息。</li>
+                        <li>订单模块只围绕你当前打开的订单页做识别和同步。</li>
+                        <li>定价和研究模块只读取你当前看到的 listing、搜索页或统计页。</li>
+                        <li>授权成功与否会直接显示在插件头部，不需要再到下面翻日志。</li>
+                    </ul>
+                </section>
+
+                <section class="section" id="faq">
+                    <h2>FAQ</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <strong>1. 为什么我能读取页面，但 AI 回复和中文理解没有运行？</strong>
+                            <p>因为页面读取在本地浏览器里就能完成，但中文理解、AI 回复、飞书同步都依赖云端授权。通常是授权码未激活、会话失效或当前设备未绑定成功。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>2. 插件头部显示“授权异常”怎么办？</strong>
+                            <p>先点头部授权状态或右上角“设置”，检查授权码是否正确；如果更换了电脑、浏览器或系统环境，需要管理员在后台重置设备后重新激活。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>3. 为什么更新插件后，Etsy 页面还是旧逻辑？</strong>
+                            <p>Chrome 重载插件后，已打开的 Etsy 页面仍可能运行旧脚本。请刷新当前 Etsy 页面一次，再重新打开侧边栏。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>4. ZIP 下载后为什么不能直接双击安装？</strong>
+                            <p>因为这不是 Chrome 商店版，而是内部发版的解压式插件。正确流程是下载 ZIP、解压，然后在 `chrome://extensions/` 中加载已解压扩展。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>5. 授权码是不是每个功能都要单独填一次？</strong>
+                            <p>不是。用户只需要感知一套授权码。后端可以对不同模块设置不同开放时间，但前端不要求用户维护多个码。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>6. 消息是不是会自动发出去？</strong>
+                            <p>不会。安全边界是：插件只负责读取、翻译、生成和填充，最终点击 Etsy 的发送按钮必须由人工完成。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="side-stack">
+                <section class="section">
+                    <h2>最新版本</h2>
+                    <div class="release-card">
+                        <div class="release-head">
+                            <span class="release-version">v0.7.7</span>
+                            <span class="release-date">2026-03-30</span>
+                        </div>
+                        <h3>当前主发布包</h3>
+                        <p>这是当前推荐学员使用的内部版本。适合消息、订单、定价、研究四个主模块的统一体验。</p>
+                        <ul class="bullet-list">
+                            <li>插件头部直接显示授权状态与到期时间</li>
+                            <li>消息读取与云端 AI 能力做了清晰分层</li>
+                            <li>远端设备授权失败时不再是黑盒状态</li>
+                            <li>继续沿用“人工最终确认发送”的安全边界</li>
+                        </ul>
+                        <div style="margin-top:14px;">
+                            <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">下载 0.7.7</a>
+                        </div>
+                    </div>
+                    <div class="release-card" style="margin-top:12px;">
+                        <h3>版本发布规则</h3>
+                        <p>每次发版都应同步更新版本号、发布日期、下载包和更新摘要。建议所有正式学员只用“最新稳定版”。</p>
+                    </div>
+                </section>
+
+                <section class="section" id="rights">
+                    <h2>学员权益与授权口径</h2>
+                    <div class="rights-card">
+                        <h3>准入门槛</h3>
+                        <p>只有和邦印有过历史合作业务的同学，才有资格申请这套软件的付费使用权。目前不对外部公开用户开放。</p>
+                    </div>
+                    <div class="rights-card" style="margin-top:12px;">
+                        <h3>陪跑学员</h3>
+                        <ul class="bullet-list">
+                            <li>现在的陪跑学员：所有新工具的新功能，默认给 6 个月使用权限。</li>
+                            <li>仍在服务期内的陪跑学员：免费期 = 服务剩余时间 + 1 个月。</li>
+                            <li>历史陪跑学员：所有功能免费开放 1 个月。</li>
+                        </ul>
+                    </div>
+                    <div class="rights-card" style="margin-top:12px;">
+                        <h3>课程学员</h3>
+                        <p>单独购买课程的学员，可免费试用 15 天。到期后是否续费，以授权后台配置为准。</p>
+                    </div>
+                    <div class="rights-card" style="margin-top:12px;">
+                        <h3>付费续费参考</h3>
+                        <ul class="bullet-list">
+                            <li>月付：99 元 / 月</li>
+                            <li>半年付：420 元 / 6 个月</li>
+                            <li>年付：600 元 / 12 个月</li>
+                        </ul>
+                        <p style="margin-top:12px;">这组价格适合当前“小规模、内部授权、持续迭代”的产品阶段。后续随着软件生态完善，价格可以再上调。</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>联系与支持</h2>
+                    <p>如果你已经是合作学员，但还没有拿到授权码，请直接联系邦印处理授权。</p>
+                    <p>如果你已激活但更换了电脑、浏览器或远端环境，需要先让管理员重置设备绑定，再重新激活。</p>
+                </section>
+            </div>
         </div>
 
         <footer>
-            <p>真实分享，不讨好，一切都在路上</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 邦印 Bangyin. All rights reserved.</p>
+            <p>ASM Assistant 是邦印内部学员使用的软件，不面向公开市场开放分发。</p>
+            <p style="margin-top:8px;">© 2026 邦印 Bangyin. All rights reserved.</p>
         </footer>
     </div>
 </body>

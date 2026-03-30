@@ -1,0 +1,27 @@
+{
+  "product": "ASM Assistant",
+  "channel": "stable",
+  "latestVersion": "0.7.7",
+  "latestReleaseDate": "2026-03-30",
+  "downloadUrl": "/tools/releases/asm-assistant-0.7.7.zip",
+  "notes": [
+    "插件头部新增授权状态与截止时间显示",
+    "明确区分本地页面读取与云端 AI / 飞书能力",
+    "远端设备授权失败时不再是无提示状态",
+    "继续保持人工确认发送的安全边界"
+  ],
+  "modules": [
+    "messages",
+    "orders",
+    "pricing",
+    "research"
+  ],
+  "releases": [
+    {
+      "version": "0.7.7",
+      "date": "2026-03-30",
+      "downloadUrl": "/tools/releases/asm-assistant-0.7.7.zip",
+      "summary": "当前推荐给内部学员使用的稳定版本"
+    }
+  ]
+}

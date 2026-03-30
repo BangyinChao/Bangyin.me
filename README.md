@@ -5,8 +5,13 @@
 ## 网站
 
 - 主站：https://bangyin.me
-- 工具：https://bangyin.me/tools
+- 软件中心：https://bangyin.me/tools
 - 探索笔记：https://solo.bangyin.me
+
+## 当前规划
+
+- `bangyin.me/tools`：ASM Assistant 的软件中心、下载入口、安装说明、FAQ、权益说明
+- `bangyin.me/admin/...`：未来统一承载消息、订单、定价、研究、授权后台
 
 ## 部署
 
