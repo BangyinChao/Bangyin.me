@@ -3,41 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>邦印 Bangyin | 个人品牌主页</title>
-    <meta name="description" content="邦印的个人品牌主页。内容、课程、工具与店铺服务，都围绕真实问题来设计。">
-    <meta name="keywords" content="邦印,Bangyin,Etsy,课程,工具,店铺租赁,ASM Assistant,博客">
+    <title>邦印 Shops | bangyin.me/shops</title>
+    <meta name="description" content="邦印店铺服务页：解决没店铺、不会开店、不知道如何稳定起步的问题。">
     <style>
         :root {
             color-scheme: light;
-            --bg: #f7f1e8;
-            --card: rgba(255, 255, 255, 0.94);
+            --bg: #f7efe7;
+            --card: rgba(255,255,255,0.95);
             --text: #17212b;
             --muted: #667085;
-            --line: rgba(23, 33, 43, 0.08);
+            --line: rgba(23,33,43,0.08);
             --accent: #ef5a29;
             --accent-dark: #d94a18;
             --accent-soft: #fff0e8;
             --soft: #eef2f6;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
             font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
             color: var(--text);
-            line-height: 1.7;
+            line-height: 1.68;
             background:
-                radial-gradient(circle at top left, rgba(239, 90, 41, 0.14), transparent 24%),
+                radial-gradient(circle at top left, rgba(239,90,41,0.14), transparent 24%),
                 linear-gradient(180deg, #fcf8f3 0%, var(--bg) 100%);
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+        a { color: inherit; text-decoration: none; }
 
         .page {
             max-width: 980px;
@@ -82,7 +76,7 @@
             padding: 10px 14px;
             border-radius: 999px;
             border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.72);
+            background: rgba(255,255,255,0.72);
             color: #475467;
             font-size: 14px;
             font-weight: 700;
@@ -94,11 +88,11 @@
             border: 1px solid var(--line);
             border-radius: 24px;
             background: var(--card);
-            box-shadow: 0 20px 44px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 20px 44px rgba(15,23,42,0.08);
         }
 
         .hero {
-            padding: 32px;
+            padding: 30px;
             margin-bottom: 18px;
         }
 
@@ -118,7 +112,7 @@
 
         h1 {
             margin: 0 0 14px;
-            font-size: clamp(36px, 5vw, 58px);
+            font-size: clamp(34px, 5vw, 56px);
             line-height: 1.04;
             letter-spacing: -0.04em;
         }
@@ -126,30 +120,30 @@
         .hero-copy {
             max-width: 760px;
             color: #475467;
-            font-size: 18px;
-            margin-bottom: 22px;
+            font-size: 17px;
+            margin-bottom: 20px;
         }
 
-        .hero-actions {
+        .hero-actions,
+        .card-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
 
-        .btn {
+        .btn,
+        .mini-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 46px;
-            padding: 0 18px;
             border-radius: 999px;
-            border: 1px solid transparent;
             font-weight: 800;
-            transition: transform .15s ease, background .15s ease, border-color .15s ease;
         }
 
-        .btn:hover {
-            transform: translateY(-1px);
+        .btn {
+            min-height: 46px;
+            padding: 0 18px;
+            border: 1px solid transparent;
         }
 
         .btn-primary {
@@ -158,15 +152,10 @@
             border-color: var(--accent);
         }
 
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            border-color: var(--accent-dark);
-        }
-
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255,255,255,0.8);
             color: var(--text);
-            border-color: var(--line);
+            border: 1px solid var(--line);
         }
 
         .grid {
@@ -180,44 +169,25 @@
             padding: 20px;
         }
 
-        .card-kicker {
-            margin-bottom: 10px;
-            color: #98a2b3;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
         .card h2 {
             margin: 0 0 10px;
-            font-size: 22px;
+            font-size: 20px;
             letter-spacing: -0.02em;
         }
 
-        .card p {
-            margin: 0 0 16px;
+        .card p,
+        .note p {
+            margin: 0;
             color: #475467;
-            font-size: 15px;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            font-size: 14px;
         }
 
         .mini-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             min-height: 38px;
             padding: 0 14px;
-            border-radius: 999px;
             background: var(--soft);
             color: #344054;
             font-size: 13px;
-            font-weight: 800;
         }
 
         .note {
@@ -228,12 +198,6 @@
             display: block;
             margin-bottom: 6px;
             font-size: 15px;
-        }
-
-        .note p {
-            margin: 0;
-            color: #475467;
-            font-size: 14px;
         }
 
         footer {
@@ -273,74 +237,53 @@
             <div class="brand">
                 <div class="brand-mark">BY</div>
                 <div>
-                    <div style="font-size:16px;">邦印 Bangyin</div>
-                    <div style="font-size:12px;color:#667085;font-weight:600;">让人回归创造，让 AI 接手重复执行</div>
+                    <div style="font-size:16px;">邦印 Shops</div>
+                    <div style="font-size:12px;color:#667085;font-weight:600;">店铺服务，解决起步环境问题</div>
                 </div>
             </div>
             <div class="nav-links">
-                <a class="nav-link" href="https://solo.bangyin.me" target="_blank" rel="noreferrer">Solo</a>
+                <a class="nav-link" href="/">主页</a>
                 <a class="nav-link" href="/course">Course</a>
                 <a class="nav-link" href="/tools">Tools</a>
-                <a class="nav-link" href="/shops">Shops</a>
+                <a class="nav-link" href="https://solo.bangyin.me" target="_blank" rel="noreferrer">Solo</a>
             </div>
         </nav>
 
         <section class="hero">
-            <div class="eyebrow">先看问题能不能被解决，再决定要不要继续</div>
-            <h1>在 AI 时代，人不该跟 AI 抢工作。</h1>
+            <div class="eyebrow">如果你卡在“没店铺、不会开店、起步不稳”</div>
+            <h1>店铺服务解决的是起步环境，不是再给你一堆空建议。</h1>
             <div class="hero-copy">
-                我更关心的是，怎样让人把时间重新放回创造力、想象力和判断力上，
-                再把那些重复、低效、容易消耗人的工作交给 AI 去执行。
-                这就是我做内容、课程、工具和店铺服务的起点。
-            </div>
-            <div style="margin:0 0 22px;color:#344054;font-size:15px;font-weight:700;">
-                这里本质上是一个 Seller 服务 Seller 的平台。
-                因为我自己就是一个真实卖家，所以我更知道什么问题值得解决，什么产品真的有用。
+                对很多想做 Etsy 的人来说，最先卡住的不是运营细节，而是根本没有一个稳定可用的店铺环境。
+                这一页只讲一件事：如果你现在缺的是店铺，那这里能不能直接解决你的问题。
             </div>
             <div class="hero-actions">
-                <a class="btn btn-primary" href="/course">先看课程</a>
-                <a class="btn btn-secondary" href="/tools">看工具</a>
-                <a class="btn btn-secondary" href="/shops">看店铺服务</a>
+                <a class="btn btn-primary" href="/course">如果你更缺方法，请先看课程</a>
+                <a class="btn btn-secondary" href="/tools">如果你更缺效率，请看工具</a>
             </div>
         </section>
 
         <section class="grid">
             <article class="card">
-                <div class="card-kicker">Solo</div>
-                <h2>先看我的分享与判断</h2>
-                <p>如果你想先了解我怎么看问题、怎么做决定、最近在研究什么，就从 `solo.bangyin.me` 开始。</p>
-                <div class="card-actions">
-                    <a class="mini-btn" href="https://solo.bangyin.me" target="_blank" rel="noreferrer">去 Solo</a>
-                </div>
+                <h2>没有店铺</h2>
+                <p>解决“没店铺、不知道怎么开店”的问题，先让你有一个稳定的起点，而不是停在观望阶段。</p>
             </article>
-
             <article class="card">
-                <div class="card-kicker">Courses & Tools</div>
-                <h2>解决不会运营、效率太低</h2>
-                <p>课程负责讲方法，工具负责接手执行。如果你听懂了还做不出来，这一块就是为你准备的。</p>
-                <div class="card-actions">
-                    <a class="mini-btn" href="/course">看课程</a>
-                    <a class="mini-btn" href="/tools">看工具</a>
-                </div>
+                <h2>不会运营</h2>
+                <p>课程负责讲清楚运营逻辑和判断标准，让你知道每一步为什么要这样做。</p>
             </article>
-
             <article class="card">
-                <div class="card-kicker">Shops</div>
-                <h2>解决没店铺、不会开店</h2>
-                <p>如果你现在最缺的是一个稳定的 Etsy 店铺环境，而不是更多零散建议，就直接看店铺服务。</p>
-                <div class="card-actions">
-                    <a class="mini-btn" href="/shops">看店铺服务</a>
-                </div>
+                <h2>执行太慢</h2>
+                <p>如果你理解了逻辑还是做得慢，Tools 就会接手消息、订单、研究和定价中的重复动作。</p>
             </article>
         </section>
 
         <section class="note">
-            <strong>我不会服务所有人，只服务真正选择我、相信我的人。</strong>
-            <p>我希望在完成自我实现的同时，让那些跟着我往前走的人，也能因为这套内容、课程、工具和服务，做得更稳、更快、更好。Solo 的思考会反哺课程和工具，课程和工具会继续服务真实业务，这就是整个闭环。</p>
+            <strong>Shops 不是单独存在的。</strong>
+            <p>它和 Course、Tools 是连在一起的：先解决店铺环境，再解决方法问题，最后用工具提升执行效率，这才是完整闭环。</p>
         </section>
 
         <footer>
-            <div>bangyin.me 是邦印的个人品牌主页。</div>
+            <div>bangyin.me/shops 用来讲清楚店铺服务，不和内容页、课程页、工具页混在一起。</div>
             <div style="margin-top:8px;">© 2026 Bangyin. All rights reserved.</div>
         </footer>
     </div>
