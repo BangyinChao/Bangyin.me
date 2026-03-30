@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邦印课程 | bangyin.me/course</title>
+    <meta name="description" content="邦印课程页：课程体系、陪跑逻辑、适合人群与学习路径。">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f6efe7;
+            --card: rgba(255,255,255,0.95);
+            --text: #17212b;
+            --muted: #667085;
+            --line: rgba(23,33,43,0.08);
+            --accent: #f25f2a;
+            --accent-dark: #d94d1a;
+            --accent-soft: #fff0e8;
+            --ink-soft: #eef2f6;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            line-height: 1.65;
+            background:
+                radial-gradient(circle at top left, rgba(242,95,42,0.14), transparent 24%),
+                linear-gradient(180deg, #fbf7f2 0%, var(--bg) 100%);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 28px 20px 72px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(180deg, #f57a49 0%, #dd5b2e 100%);
+            color: #fff;
+            letter-spacing: 0.08em;
+            font-size: 13px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid var(--line);
+            font-size: 14px;
+            font-weight: 700;
+            color: #475467;
+        }
+
+        .hero,
+        .section,
+        .card {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--card);
+            box-shadow: 0 24px 50px rgba(15,23,42,0.08);
+        }
+
+        .hero {
+            padding: 30px;
+            margin-bottom: 18px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: #b54708;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            font-size: clamp(34px, 5vw, 56px);
+            line-height: 1.04;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-copy {
+            max-width: 760px;
+            color: #475467;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-weight: 800;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.78);
+            border-color: var(--line);
+            color: var(--text);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .card {
+            padding: 18px;
+        }
+
+        .card h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .card p,
+        .section p,
+        .bullet li {
+            margin: 0;
+            color: #475467;
+            font-size: 14px;
+        }
+
+        .section {
+            padding: 24px;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            margin: 0 0 16px;
+            font-size: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .bullet {
+            margin: 12px 0 0;
+            padding-left: 18px;
+        }
+
+        .bullet li + li {
+            margin-top: 8px;
+        }
+
+        footer {
+            margin-top: 26px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 920px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                padding: 18px 14px 56px;
+            }
+
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero,
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="nav">
+            <div class="brand">
+                <div class="brand-mark">BY</div>
+                <div>
+                    <div style="font-size:16px;">邦印课程</div>
+                    <div style="font-size:12px;color:#667085;font-weight:600;">bangyin.me/course</div>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a class="nav-link" href="/">个人品牌主页</a>
+                <a class="nav-link" href="/tools">工具</a>
+                <a class="nav-link" href="https://solo.bangyin.me" target="_blank" rel="noreferrer">分享与博客</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="eyebrow">课程单独成页，而不是混在工具页里</div>
+            <h1>这里负责讲清楚课程体系、适合谁，以及你会学到什么。</h1>
+            <div class="hero-copy">
+                `bangyin.me/course` 只处理课程表达。
+                它不承担工具下载，也不承担博客内容。
+                用户来这里，是为了判断课程是否适合自己，以及应该走哪条学习路径。
+            </div>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="/tools">如果你要看工具，请去工具中心</a>
+                <a class="btn btn-secondary" href="/">返回个人品牌主页</a>
+            </div>
+        </section>
+
+        <div class="grid">
+            <div class="card">
+                <h3>认知与入门</h3>
+                <p>帮助新手理解 Etsy 的底层逻辑、业务结构与正确预期，先建立判断力。</p>
+            </div>
+            <div class="card">
+                <h3>实战与执行</h3>
+                <p>围绕选品、上架、定价、客服与订单处理，把关键动作串成完整路径。</p>
+            </div>
+            <div class="card">
+                <h3>陪跑与交付</h3>
+                <p>课程不是孤立售卖，后续可以和工具、案例、陪跑服务形成连续交付。</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">课程页应该回答的核心问题</h2>
+            <ul class="bullet">
+                <li>这门课适合什么阶段的人。</li>
+                <li>课程解决的核心问题是什么。</li>
+                <li>学习后能获得哪些能力和判断标准。</li>
+                <li>课程、陪跑、工具之间如何衔接。</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">后续补充方向</h2>
+            <ul class="bullet">
+                <li>课程产品矩阵：入门课、实战课、陪跑服务。</li>
+                <li>每门课的目标人群、章节大纲、学习收益。</li>
+                <li>与 ASM Assistant 的关系说明：哪些能力靠课程建立，哪些效率靠工具放大。</li>
+            </ul>
+        </section>
+
+        <footer>
+            <div>邦印课程页 · 课程表达与工具下载彻底分离。</div>
+            <div style="margin-top:8px;">© 2026 Bangyin. All rights reserved.</div>
+        </footer>
+    </div>
+</body>
+</html>
