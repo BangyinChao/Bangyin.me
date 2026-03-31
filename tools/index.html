@@ -1,95 +1,147 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASM Assistant 软件中心 - 邦印 Bangyin</title>
-    <meta name="description" content="ASM Assistant 官方软件中心：版本发布、下载包、安装说明、FAQ、授权权益与更新记录。">
-    <meta name="keywords" content="ASM Assistant,Etsy插件,Etsy客服工具,Etsy订单同步,Etsy定价工具,邦印工具">
+    <title>Bangyin Tools</title>
+    <meta name="description" content="Bangyin Tools">
+    <meta name="keywords" content="Bangyin,ASM Assistant,Etsy tools,message assistant,order sync,pricing,listing generator">
     <style>
         :root {
             color-scheme: light;
             --bg: #f6f2ea;
-            --card: rgba(255, 255, 255, 0.94);
+            --card: rgba(255,255,255,0.95);
             --text: #18212b;
             --muted: #667085;
-            --line: rgba(24, 33, 43, 0.09);
+            --line: rgba(24,33,43,0.09);
             --accent: #f25f2a;
             --accent-dark: #d94d1a;
             --accent-soft: #fff1e8;
-            --ok-bg: #edf7ef;
-            --ok-text: #22663a;
-            --warn-bg: #fff7e8;
-            --warn-text: #9a6700;
-            --chip-bg: #f5f7fa;
+            --soft: #f5f7fa;
         }
 
-        * {
-            box-sizing: border-box;
+        html {
+            scroll-behavior: smooth;
         }
+
+        html[data-lang="zh"] .lang-en,
+        html[data-lang="en"] .lang-zh {
+            display: none !important;
+        }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+            font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top, rgba(242, 95, 42, 0.14), transparent 34%),
+                radial-gradient(circle at top, rgba(242,95,42,0.14), transparent 34%),
                 linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
-            line-height: 1.65;
+            line-height: 1.68;
         }
 
-        a {
-            color: inherit;
-        }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; }
 
         .page {
             max-width: 1120px;
             margin: 0 auto;
-            padding: 28px 20px 72px;
+            padding: 28px 20px 88px;
         }
 
-        .topbar {
+        .nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
             margin-bottom: 20px;
-            font-size: 14px;
         }
 
-        .topbar a {
-            text-decoration: none;
-            color: #8b5a3c;
-            font-weight: 600;
-        }
-
-        .topbar-nav {
+        .brand {
             display: flex;
-            gap: 16px;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(180deg, #f57a49 0%, #dd5b2e 100%);
+            color: #fff;
+            letter-spacing: 0.08em;
+            font-size: 13px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .hero {
-            display: grid;
-            grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
-            gap: 18px;
-            margin-bottom: 18px;
-        }
-
-        .hero-card,
-        .section,
-        .release-card,
-        .faq-item,
-        .rights-card,
-        .step-card {
+        .nav-link,
+        .jump-link,
+        .pill {
+            padding: 10px 14px;
+            border-radius: 999px;
             border: 1px solid var(--line);
-            border-radius: 22px;
-            background: var(--card);
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            background: rgba(255,255,255,0.78);
+            color: #475467;
+            font-size: 14px;
+            font-weight: 700;
         }
 
-        .hero-card {
-            padding: 28px;
+        .lang-switch {
+            display: inline-flex;
+            padding: 4px;
+            gap: 4px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.78);
+        }
+
+        .lang-button {
+            min-width: 54px;
+            height: 34px;
+            padding: 0 12px;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: #667085;
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .lang-button.is-active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .hero,
+        .card,
+        .detail,
+        .note {
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: var(--card);
+            box-shadow: 0 24px 48px rgba(15,23,42,0.08);
+        }
+
+        .hero {
+            padding: 34px;
+            margin-bottom: 18px;
         }
 
         .eyebrow {
@@ -101,35 +153,46 @@
             background: var(--accent-soft);
             color: #b54708;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.04em;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         h1 {
-            margin: 0 0 12px;
-            font-size: clamp(30px, 5vw, 52px);
-            line-height: 1.04;
-            letter-spacing: -0.03em;
+            margin: 0 0 14px;
+            font-size: clamp(36px, 5vw, 62px);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
         }
 
-        .hero-subtitle {
-            margin: 0 0 18px;
-            font-size: 17px;
-            color: #475467;
+        .hero-copy {
             max-width: 720px;
+            margin: 0 0 18px;
+            color: #475467;
+            font-size: 18px;
         }
 
-        .hero-note {
+        .hero-line {
             margin: 0 0 22px;
-            font-size: 14px;
-            color: var(--muted);
+            color: #344054;
+            font-size: 15px;
+            font-weight: 700;
         }
 
-        .hero-actions {
+        .hero-actions,
+        .row-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
+        }
+
+        .hero-copy,
+        .hero-line,
+        .section-copy,
+        .demo-copy,
+        .detail-copy,
+        .note p {
+            display: none;
         }
 
         .btn {
@@ -140,13 +203,7 @@
             padding: 0 18px;
             border-radius: 999px;
             border: 1px solid transparent;
-            text-decoration: none;
-            font-weight: 700;
-            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
+            font-weight: 800;
         }
 
         .btn-primary {
@@ -155,477 +212,1054 @@
             border-color: var(--accent);
         }
 
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            border-color: var(--accent-dark);
-        }
-
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.82);
-            border-color: rgba(24, 33, 43, 0.09);
+            background: rgba(255,255,255,0.84);
             color: var(--text);
+            border-color: var(--line);
         }
 
-        .hero-stats {
-            display: grid;
-            gap: 14px;
-            align-content: start;
-        }
-
-        .stat {
-            padding: 20px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #98a2b3;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 6px;
-        }
-
-        .stat-note {
-            font-size: 14px;
-            color: var(--muted);
-        }
-
-        .chip-row {
+        .meta-row,
+        .jump-bar {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
-            margin: 18px 0 0;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
         }
 
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: var(--chip-bg);
-            color: #344054;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 320px;
-            gap: 18px;
-            align-items: start;
-        }
-
-        .main-stack,
-        .side-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .section {
-            padding: 24px;
-        }
-
-        .section h2 {
-            margin: 0 0 14px;
-            font-size: 24px;
-            letter-spacing: -0.02em;
-        }
-
-        .section p {
-            margin: 0 0 12px;
-            color: #475467;
-        }
-
-        .grid-2 {
+        .overview-grid,
+        .faq-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 14px;
+            margin-bottom: 18px;
         }
 
-        .feature-card,
-        .release-card,
-        .rights-card,
-        .step-card {
-            padding: 18px;
+        .card {
+            display: block;
+            padding: 22px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .feature-card h3,
-        .release-card h3,
-        .rights-card h3,
-        .step-card h3 {
-            margin: 0 0 8px;
-            font-size: 18px;
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(242,95,42,0.28);
+            box-shadow: 0 28px 56px rgba(15,23,42,0.10);
         }
 
-        .feature-card p,
-        .release-card p,
-        .rights-card p,
-        .step-card p {
+        .card-kicker {
+            margin-bottom: 10px;
+            color: #98a2b3;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 22px;
+            letter-spacing: -0.02em;
+        }
+
+        .card p,
+        .faq-card p,
+        .detail-copy,
+        .detail-list li,
+        .note p {
             margin: 0;
             color: #475467;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        .bullet-list {
-            margin: 12px 0 0;
-            padding-left: 18px;
-            color: #344054;
-        }
-
-        .bullet-list li + li {
-            margin-top: 8px;
-        }
-
-        .steps {
-            display: grid;
-            gap: 14px;
-        }
-
-        .step-num {
-            display: inline-flex;
-            width: 28px;
-            height: 28px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 999px;
-            background: var(--accent-soft);
+        .card-arrow {
+            margin-top: 14px;
             color: #b54708;
             font-size: 13px;
             font-weight: 800;
-            margin-bottom: 10px;
         }
 
-        .faq-list {
+        .section {
+            margin-bottom: 18px;
+            scroll-margin-top: 100px;
+        }
+
+        .section-head {
+            margin-bottom: 14px;
+        }
+
+        .section-kicker {
+            margin-bottom: 8px;
+            color: #98a2b3;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            margin: 0 0 8px;
+            font-size: clamp(28px, 4vw, 40px);
+            letter-spacing: -0.03em;
+        }
+
+        .section-copy {
+            margin: 0;
+            color: #667085;
+            font-size: 16px;
+        }
+
+        .detail {
+            padding: 24px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .demo-panel {
+            min-height: 270px;
+            padding: 20px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background:
+                radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 24%),
+                linear-gradient(180deg, rgba(24,33,43,0.95) 0%, rgba(36,48,62,0.96) 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .demo-panel::after {
+            content: "";
+            position: absolute;
+            inset: auto -20% -34% auto;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(242,95,42,0.18);
+            filter: blur(4px);
+        }
+
+        .demo-top,
+        .demo-bottom {
+            position: relative;
+            z-index: 1;
+        }
+
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 28px;
+            padding: 0 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.10);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .demo-title {
+            margin: 0 0 6px;
+            font-size: 28px;
+            letter-spacing: -0.03em;
+        }
+
+        .demo-copy {
+            margin: 0;
+            color: rgba(255,255,255,0.76);
+            font-size: 14px;
+        }
+
+        .demo-lines {
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .demo-line {
+            height: 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.12);
+            overflow: hidden;
+        }
+
+        .demo-line::after {
+            content: "";
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, rgba(255,255,255,0.28), rgba(242,95,42,0.82));
+            animation: pulse 3.2s ease-in-out infinite;
+        }
+
+        .detail-side {
             display: grid;
             gap: 12px;
         }
 
-        .faq-item {
-            padding: 18px 20px;
+        .detail-copy {
+            line-height: 1.7;
         }
 
-        .faq-item strong {
+        .detail-list {
+            display: grid;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .detail-list li {
+            padding: 13px 14px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: rgba(245,247,250,0.8);
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .delivery-stack {
+            display: grid;
+            gap: 14px;
+        }
+
+        .info-card,
+        .faq-card,
+        .note {
+            padding: 22px;
+        }
+
+        .info-card,
+        .faq-card {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--card);
+            box-shadow: 0 20px 40px rgba(15,23,42,0.07);
+        }
+
+        .info-card h3,
+        .faq-card h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .step-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .step-index {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--accent-soft);
+            color: #b54708;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .step-copy {
+            padding-top: 6px;
+            color: #475467;
+            font-size: 15px;
+        }
+
+        .faq-grid {
+            margin-top: 14px;
+        }
+
+        .note strong {
             display: block;
             margin-bottom: 6px;
             font-size: 16px;
         }
 
-        .faq-item p {
-            margin: 0;
-            color: #475467;
-            font-size: 14px;
-        }
-
-        .release-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .release-version {
-            display: inline-flex;
-            padding: 6px 10px;
-            border-radius: 999px;
-            background: var(--accent-soft);
-            color: #b54708;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .release-date {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        .info-banner {
-            margin-top: 16px;
-            padding: 14px 16px;
-            border-radius: 16px;
-            background: var(--warn-bg);
-            color: var(--warn-text);
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .mini {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
         footer {
-            margin-top: 28px;
+            margin-top: 26px;
             text-align: center;
             color: var(--muted);
             font-size: 13px;
         }
 
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-12%); opacity: 0.8; }
+            50% { transform: translateX(12%); opacity: 1; }
+        }
+
         @media (max-width: 920px) {
-            .hero,
-            .content-grid {
+            .overview-grid,
+            .faq-grid,
+            .detail-grid,
+            .delivery-grid {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 640px) {
             .page {
-                padding: 18px 14px 56px;
+                padding: 18px 14px 64px;
             }
 
-            .hero-card,
-            .section {
-                padding: 20px;
-            }
-
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar {
-                flex-direction: column;
+            .nav {
                 align-items: flex-start;
+                flex-direction: column;
             }
 
-            h1 {
-                font-size: 34px;
+            .nav-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .hero,
+            .card,
+            .detail,
+            .info-card,
+            .faq-card,
+            .note {
+                padding: 20px;
             }
         }
     </style>
+    <script src="/assets/site.js" defer></script>
 </head>
 <body>
     <div class="page">
-        <div class="topbar">
-            <div class="topbar-nav">
-                <a href="/">邦印主页</a>
-                <a href="/course">课程</a>
-                <a href="/tools">工具中心</a>
-                <a href="/shops">店铺服务</a>
-                <a href="https://solo.bangyin.me" target="_blank" rel="noreferrer">分享与博客</a>
+        <nav class="nav">
+            <div class="brand">
+                <div class="brand-mark">BY</div>
+                <div>
+                    <div style="font-size:16px;">Bangyin Tools</div>
+                    <div style="font-size:12px;color:#667085;font-weight:600;">
+                        <span class="lang-zh">插件与工作台</span>
+                        <span class="lang-en">Plugin and Workbench</span>
+                    </div>
+                </div>
             </div>
-            <div class="mini">内部软件中心 · 仅面向已合作学员开放</div>
-        </div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a class="nav-link" href="/">
+                        <span class="lang-zh">首页</span>
+                        <span class="lang-en">Home</span>
+                    </a>
+                    <a class="nav-link" href="/course">
+                        <span class="lang-zh">课程</span>
+                        <span class="lang-en">Course</span>
+                    </a>
+                    <a class="nav-link" href="/shops">
+                        <span class="lang-zh">店铺</span>
+                        <span class="lang-en">Shops</span>
+                    </a>
+                    <a class="nav-link" href="https://solo.bangyin.me" target="_blank" rel="noreferrer">
+                        <span class="lang-zh">Solo</span>
+                        <span class="lang-en">Solo</span>
+                    </a>
+                </div>
+                <div class="lang-switch" aria-label="language switch">
+                    <button class="lang-button" data-lang-trigger="zh">中文</button>
+                    <button class="lang-button" data-lang-trigger="en">EN</button>
+                </div>
+            </div>
+        </nav>
 
         <section class="hero">
-            <div class="hero-card">
-                <div class="eyebrow">ASM Assistant 官方软件中心</div>
-                <h1>把消息、订单、定价、研究放进一个插件里。</h1>
-                <p class="hero-subtitle">
-                    这是邦印内部学员使用的 Etsy 辅助插件发布页。这里统一提供版本号、下载包、安装说明、FAQ、授权说明和学员权益规则。
-                </p>
-                <p class="hero-note">
-                    核心原则：只围绕你当前打开的 Etsy 页面工作；消息回复只做辅助生成；最终发送必须人工确认。
-                </p>
-                <p class="hero-note" style="margin-top:-8px;">
-                    这里是一个 Seller 服务 Seller 的工具平台。因为我自己就是卖家，所以我更在意这些功能能不能真正解决卖家的真实问题。
-                </p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">下载最新版 0.7.7</a>
-                    <a class="btn btn-secondary" href="#install">安装说明</a>
-                    <a class="btn btn-secondary" href="#rights">权益说明</a>
-                </div>
-                <div class="chip-row">
-                    <span class="chip">消息助手</span>
-                    <span class="chip">订单同步</span>
-                    <span class="chip">竞对定价</span>
-                    <span class="chip">市场调研</span>
-                    <span class="chip">一套授权码管理整套插件</span>
-                </div>
+            <div class="eyebrow">Bangyin Tools</div>
+            <h1>
+                <span class="lang-zh">插件 3 模块已上线，Listing 工作台开发中。</span>
+                <span class="lang-en">Three plugin modules are live. Listing workbench is in build.</span>
+            </h1>
+            <p class="hero-copy">
+                <span class="lang-zh">消息、订单、定价已经可交付。Listing 生成将作为独立网页工具开放。</span>
+                <span class="lang-en">Messages, orders, and pricing are live. Listing generation will ship as a separate web tool.</span>
+            </p>
+            <p class="hero-line">
+                <span class="lang-zh">Seller serves seller.</span>
+                <span class="lang-en">Seller serves seller.</span>
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">
+                    <span class="lang-zh">下载 0.7.7</span>
+                    <span class="lang-en">Download 0.7.7</span>
+                </a>
+                <a class="btn btn-secondary" href="#rights">
+                    <span class="lang-zh">看权益</span>
+                    <span class="lang-en">Access</span>
+                </a>
+                <a class="btn btn-secondary" href="#delivery">
+                    <span class="lang-zh">安装</span>
+                    <span class="lang-en">Install</span>
+                </a>
             </div>
+        </section>
 
-            <div class="hero-stats">
-                <div class="hero-card stat">
-                    <div class="stat-label">当前稳定版本</div>
-                    <div class="stat-value">0.7.7</div>
-                    <div class="stat-note">发布日期：2026-03-30</div>
+        <div class="meta-row">
+            <div class="pill">Version 0.7.7</div>
+            <div class="pill">
+                <span class="lang-zh">Chrome 插件</span>
+                <span class="lang-en">Chrome Extension</span>
+            </div>
+            <div class="pill">
+                <span class="lang-zh">邀请制</span>
+                <span class="lang-en">Invite Only</span>
+            </div>
+            <div class="pill">
+                <span class="lang-zh">一机一授权</span>
+                <span class="lang-en">One Device</span>
+            </div>
+            <div class="pill">
+                <span class="lang-zh">Listing 工作台开发中</span>
+                <span class="lang-en">Listing workbench in build</span>
+            </div>
+        </div>
+
+        <div class="jump-bar">
+            <a class="jump-link" href="#message">
+                <span class="lang-zh">消息</span>
+                <span class="lang-en">Message</span>
+            </a>
+            <a class="jump-link" href="#orders">
+                <span class="lang-zh">订单</span>
+                <span class="lang-en">Orders</span>
+            </a>
+            <a class="jump-link" href="#pricing">
+                <span class="lang-zh">定价</span>
+                <span class="lang-en">Pricing</span>
+            </a>
+            <a class="jump-link" href="#listing">
+                <span class="lang-zh">Listing</span>
+                <span class="lang-en">Listing</span>
+            </a>
+            <a class="jump-link" href="#rights">
+                <span class="lang-zh">权益</span>
+                <span class="lang-en">Access</span>
+            </a>
+            <a class="jump-link" href="#delivery">
+                <span class="lang-zh">下载与安装</span>
+                <span class="lang-en">Delivery</span>
+            </a>
+            <a class="jump-link" href="#faq">
+                <span class="lang-zh">FAQ</span>
+                <span class="lang-en">FAQ</span>
+            </a>
+            <a class="jump-link" href="#contact">
+                <span class="lang-zh">联系</span>
+                <span class="lang-en">Contact</span>
+            </a>
+        </div>
+
+        <section class="overview-grid">
+            <a class="card" href="#message">
+                <div class="card-kicker">Module 01</div>
+                <h2>
+                    <span class="lang-zh">消息</span>
+                    <span class="lang-en">Message</span>
+                </h2>
+                <p>
+                    <span class="lang-zh">读取上下文，生成建议回复，人工确认发送。</span>
+                    <span class="lang-en">Read context, draft a reply, keep manual send.</span>
+                </p>
+                <div class="card-arrow">
+                    <span class="lang-zh">查看详情</span>
+                    <span class="lang-en">View details</span>
                 </div>
-                <div class="hero-card stat">
-                    <div class="stat-label">安装方式</div>
-                    <div class="stat-value" style="font-size:22px;">下载 ZIP → 解压 → Chrome 加载已解压扩展</div>
-                    <div class="stat-note">适合内部发版和小规模授权，不走公开应用商店。</div>
+            </a>
+            <a class="card" href="#orders">
+                <div class="card-kicker">Module 02</div>
+                <h2>
+                    <span class="lang-zh">订单</span>
+                    <span class="lang-en">Orders</span>
+                </h2>
+                <p>
+                    <span class="lang-zh">抓当前页订单，识别新旧状态，进入工作流。</span>
+                    <span class="lang-en">Sync current page orders and separate new from existing.</span>
+                </p>
+                <div class="card-arrow">
+                    <span class="lang-zh">查看详情</span>
+                    <span class="lang-en">View details</span>
                 </div>
-                <div class="hero-card stat">
-                    <div class="stat-label">授权方式</div>
-                    <div class="stat-value" style="font-size:22px;">单授权码 + 设备绑定</div>
-                    <div class="stat-note">不同功能模块可以有不同开放周期，但用户只感知一套授权码。</div>
+            </a>
+            <a class="card" href="#pricing">
+                <div class="card-kicker">Module 03</div>
+                <h2>
+                    <span class="lang-zh">定价</span>
+                    <span class="lang-en">Pricing</span>
+                </h2>
+                <p>
+                    <span class="lang-zh">拆竞对，算利润，再反推自己的售价。</span>
+                    <span class="lang-en">Break down competitors, estimate margin, price your own listing.</span>
+                </p>
+                <div class="card-arrow">
+                    <span class="lang-zh">查看详情</span>
+                    <span class="lang-en">View details</span>
+                </div>
+            </a>
+            <a class="card" href="#listing">
+                <div class="card-kicker">Web Tool</div>
+                <h2>
+                    <span class="lang-zh">Listing 工作台</span>
+                    <span class="lang-en">Listing Workbench</span>
+                </h2>
+                <p>
+                    <span class="lang-zh">独立网页工具，负责模板、资料库、竞对参考与批量生成。</span>
+                    <span class="lang-en">Separate web tool for templates, product knowledge, competitor references, and batch generation.</span>
+                </p>
+                <div class="card-arrow">
+                    <span class="lang-zh">查看规划</span>
+                    <span class="lang-en">View plan</span>
+                </div>
+            </a>
+        </section>
+
+        <section class="section" id="message">
+            <div class="section-head">
+                <div class="section-kicker">Message</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">消息处理</span>
+                    <span class="lang-en">Message Handling</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">围绕“知道客户在说什么，并快速回到可发送状态”。</span>
+                    <span class="lang-en">Built around understanding the buyer and getting back to a send-ready draft fast.</span>
+                </p>
+            </div>
+            <div class="detail">
+                <div class="detail-grid">
+                    <div class="demo-panel">
+                        <div class="demo-top">
+                            <div class="demo-badge">GIF 01</div>
+                            <div class="demo-lines">
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                            </div>
+                        </div>
+                        <div class="demo-bottom">
+                            <h3 class="demo-title">
+                                <span class="lang-zh">消息工作流</span>
+                                <span class="lang-en">Message Flow</span>
+                            </h3>
+                            <p class="demo-copy">
+                                <span class="lang-zh">读取对话、中文理解、建议回复、人工发送。</span>
+                                <span class="lang-en">Read thread, understand intent, draft reply, send manually.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="detail-side">
+                        <p class="detail-copy">
+                            <span class="lang-zh">打开对话后，插件读取历史上下文与待回复内容，再给出可修改的建议回复。</span>
+                            <span class="lang-en">After a thread is opened, the extension reads context and pending buyer messages, then generates an editable draft.</span>
+                        </p>
+                        <ul class="detail-list">
+                            <li>
+                                <span class="lang-zh">只建议，不自动发送。</span>
+                                <span class="lang-en">Draft only. No auto-send.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">支持中文补充意见后重生成。</span>
+                                <span class="lang-en">Rewrite again from Chinese feedback.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">优先处理待回复消息，不丢历史上下文。</span>
+                                <span class="lang-en">Prioritize pending messages without losing context.</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <div class="content-grid">
-            <div class="main-stack">
-                <section class="section" id="overview">
-                    <h2>这套插件现在解决什么问题</h2>
-                    <div class="grid-2">
-                        <div class="feature-card">
-                            <h3>消息助手</h3>
-                            <p>读取当前对话，提炼待回复买家原文，生成中文理解与建议回复，再由你手动确认发送。</p>
+        <section class="section" id="orders">
+            <div class="section-head">
+                <div class="section-kicker">Orders</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">订单同步</span>
+                    <span class="lang-en">Order Sync</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">围绕“当前页订单是否已经入库”。</span>
+                    <span class="lang-en">Built around whether the current page order is already in the system.</span>
+                </p>
+            </div>
+            <div class="detail">
+                <div class="detail-grid">
+                    <div class="demo-panel">
+                        <div class="demo-top">
+                            <div class="demo-badge">GIF 02</div>
+                            <div class="demo-lines">
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                            </div>
                         </div>
-                        <div class="feature-card">
-                            <h3>订单同步</h3>
-                            <p>只围绕当前打开的 Sold Orders 页面工作，比对新订单与已入库订单，再按你的动作执行同步。</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>竞对定价</h3>
-                            <p>读取当前 listing 的价格、折扣、运费、变体与费率上下文，辅助做逆向拆解和正向定价。</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>市场调研</h3>
-                            <p>读取当前搜索页或统计页的样本与信号，把页面数据沉淀到后台，为后续分析报告做准备。</p>
+                        <div class="demo-bottom">
+                            <h3 class="demo-title">
+                                <span class="lang-zh">订单识别</span>
+                                <span class="lang-en">Order Check</span>
+                            </h3>
+                            <p class="demo-copy">
+                                <span class="lang-zh">当前页订单、新订单数量、已入库数量。</span>
+                                <span class="lang-en">Current page count, new orders, and already-synced orders.</span>
+                            </p>
                         </div>
                     </div>
-                    <div class="info-banner">
-                        这不是公开售卖的软件。只有和邦印有过历史合作业务的同学，才有资格申请授权并付费使用。
+                    <div class="detail-side">
+                        <p class="detail-copy">
+                            <span class="lang-zh">打开订单页后，插件抓取当前页数据，并把“新订单”和“已入库”分开显示。</span>
+                            <span class="lang-en">Once the order page is open, the extension reads the current page and separates new orders from already-synced ones.</span>
+                        </p>
+                        <ul class="detail-list">
+                            <li>
+                                <span class="lang-zh">按当前店铺隔离数据。</span>
+                                <span class="lang-en">Store-level data isolation.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">同步前先做订单号校验。</span>
+                                <span class="lang-en">Check order numbers before sync.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">更适合进入飞书与后台工作流。</span>
+                                <span class="lang-en">Ready for Feishu and back-office workflow.</span>
+                            </li>
+                        </ul>
                     </div>
-                </section>
+                </div>
+            </div>
+        </section>
 
-                <section class="section" id="install">
-                    <h2>安装与更新</h2>
-                    <div class="steps">
-                        <div class="step-card">
-                            <div class="step-num">1</div>
-                            <h3>下载发布包</h3>
-                            <p>点击页面顶部的“下载最新版 0.7.7”，得到 `asm-assistant-0.7.7.zip`。</p>
+        <section class="section" id="pricing">
+            <div class="section-head">
+                <div class="section-kicker">Pricing</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">定价工具</span>
+                    <span class="lang-en">Pricing Tool</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">围绕“竞对赚多少，我该怎么定”。</span>
+                    <span class="lang-en">Built around how much the competitor makes and how you should price.</span>
+                </p>
+            </div>
+            <div class="detail">
+                <div class="detail-grid">
+                    <div class="demo-panel">
+                        <div class="demo-top">
+                            <div class="demo-badge">GIF 03</div>
+                            <div class="demo-lines">
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                            </div>
                         </div>
-                        <div class="step-card">
-                            <div class="step-num">2</div>
-                            <h3>解压到本地固定目录</h3>
-                            <p>把压缩包解压到你自己容易找到的位置。后续更新时，建议一直使用同一个目录，避免插件路径混乱。</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-num">3</div>
-                            <h3>Chrome 加载已解压扩展</h3>
-                            <p>打开 `chrome://extensions/`，开启“开发者模式”，点击“加载已解压的扩展程序”，选择刚刚解压后的插件目录。</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-num">4</div>
-                            <h3>输入授权码并完成激活</h3>
-                            <p>打开插件侧边栏，点击右上角“设置”，输入管理员发给你的授权码。头部状态变成“已授权”并显示截止时间，才算激活成功。</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-num">5</div>
-                            <h3>后续更新方式</h3>
-                            <p>下载新的 ZIP 覆盖旧目录后，在 `chrome://extensions/` 点击“重新加载”；或者删除旧目录后重新加载新目录。更新后请刷新 Etsy 页面一次。</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section" id="usage">
-                    <h2>使用原则</h2>
-                    <ul class="bullet-list">
-                        <li>消息模块只围绕你当前打开的对话工作，不做后台全量抓取。</li>
-                        <li>AI 只负责理解和建议，不会自动帮你发送消息。</li>
-                        <li>订单模块只围绕你当前打开的订单页做识别和同步。</li>
-                        <li>定价和研究模块只读取你当前看到的 listing、搜索页或统计页。</li>
-                        <li>授权成功与否会直接显示在插件头部，不需要再到下面翻日志。</li>
-                    </ul>
-                </section>
-
-                <section class="section" id="faq">
-                    <h2>FAQ</h2>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <strong>1. 为什么我能读取页面，但 AI 回复和中文理解没有运行？</strong>
-                            <p>因为页面读取在本地浏览器里就能完成，但中文理解、AI 回复、飞书同步都依赖云端授权。通常是授权码未激活、会话失效或当前设备未绑定成功。</p>
-                        </div>
-                        <div class="faq-item">
-                            <strong>2. 插件头部显示“授权异常”怎么办？</strong>
-                            <p>先点头部授权状态或右上角“设置”，检查授权码是否正确；如果更换了电脑、浏览器或系统环境，需要管理员在后台重置设备后重新激活。</p>
-                        </div>
-                        <div class="faq-item">
-                            <strong>3. 为什么更新插件后，Etsy 页面还是旧逻辑？</strong>
-                            <p>Chrome 重载插件后，已打开的 Etsy 页面仍可能运行旧脚本。请刷新当前 Etsy 页面一次，再重新打开侧边栏。</p>
-                        </div>
-                        <div class="faq-item">
-                            <strong>4. ZIP 下载后为什么不能直接双击安装？</strong>
-                            <p>因为这不是 Chrome 商店版，而是内部发版的解压式插件。正确流程是下载 ZIP、解压，然后在 `chrome://extensions/` 中加载已解压扩展。</p>
-                        </div>
-                        <div class="faq-item">
-                            <strong>5. 授权码是不是每个功能都要单独填一次？</strong>
-                            <p>不是。用户只需要感知一套授权码。后端可以对不同模块设置不同开放时间，但前端不要求用户维护多个码。</p>
-                        </div>
-                        <div class="faq-item">
-                            <strong>6. 消息是不是会自动发出去？</strong>
-                            <p>不会。安全边界是：插件只负责读取、翻译、生成和填充，最终点击 Etsy 的发送按钮必须由人工完成。</p>
+                        <div class="demo-bottom">
+                            <h3 class="demo-title">
+                                <span class="lang-zh">定价拆解</span>
+                                <span class="lang-en">Pricing Breakdown</span>
+                            </h3>
+                            <p class="demo-copy">
+                                <span class="lang-zh">价格、折扣、运费、利润、汇率。</span>
+                                <span class="lang-en">Price, discount, shipping, margin, and FX.</span>
+                            </p>
                         </div>
                     </div>
-                </section>
+                    <div class="detail-side">
+                        <p class="detail-copy">
+                            <span class="lang-zh">打开竞对 Listing 后，抓价格结构，再去算竞对利润和自己的可行定价。</span>
+                            <span class="lang-en">Open a competitor listing, capture its pricing structure, then estimate competitor margin and your own viable price.</span>
+                        </p>
+                        <ul class="detail-list">
+                            <li>
+                                <span class="lang-zh">支持逆向定价与正向定价。</span>
+                                <span class="lang-en">Supports reverse and forward pricing.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">比较折扣、毛利、运费与竞争差距。</span>
+                                <span class="lang-en">Compare discounts, margin, shipping, and competitive gap.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">适合多国家、多币种场景。</span>
+                                <span class="lang-en">Fits multi-country and multi-currency setups.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="listing">
+            <div class="section-head">
+                <div class="section-kicker">Listing</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">Listing 工作台</span>
+                    <span class="lang-en">Listing Workbench</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">不塞进插件，单独做成网页工作台。</span>
+                    <span class="lang-en">Built as a separate web workbench, not inside the plugin.</span>
+                </p>
+            </div>
+            <div class="detail">
+                <div class="detail-grid">
+                    <div class="demo-panel">
+                        <div class="demo-top">
+                            <div class="demo-badge">Web Tool</div>
+                            <div class="demo-lines">
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                                <div class="demo-line"></div>
+                            </div>
+                        </div>
+                        <div class="demo-bottom">
+                            <h3 class="demo-title">
+                                <span class="lang-zh">Listing 生成</span>
+                                <span class="lang-en">Listing Creation</span>
+                            </h3>
+                            <p class="demo-copy">
+                                <span class="lang-zh">模板、资料库、竞对参考、批量生成。</span>
+                                <span class="lang-en">Templates, knowledge base, competitor references, batch generation.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="detail-side">
+                        <ul class="detail-list">
+                            <li>
+                                <span class="lang-zh">维护模板库、产品资料库和固定参数。</span>
+                                <span class="lang-en">Maintain templates, product knowledge, and fixed attributes.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">支持竞对链接参考，不把生成逻辑塞回插件。</span>
+                                <span class="lang-en">Use competitor references without forcing the workflow into the plugin.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">目标是批量生成与后续编辑，不是一次只出一条。</span>
+                                <span class="lang-en">Built for batch generation and editing, not single-output drafting.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="rights">
+            <div class="section-head">
+                <div class="section-kicker">Access</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">使用权益</span>
+                    <span class="lang-en">Access</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">先看清能用什么、能用多久，再决定要不要开通。</span>
+                    <span class="lang-en">Know what is included and for how long before activation.</span>
+                </p>
             </div>
 
-            <div class="side-stack">
-                <section class="section">
-                    <h2>最新版本</h2>
-                    <div class="release-card">
-                        <div class="release-head">
-                            <span class="release-version">v0.7.7</span>
-                            <span class="release-date">2026-03-30</span>
-                        </div>
-                        <h3>当前主发布包</h3>
-                        <p>这是当前推荐学员使用的内部版本。适合消息、订单、定价、研究四个主模块的统一体验。</p>
-                        <ul class="bullet-list">
-                            <li>插件头部直接显示授权状态与到期时间</li>
-                            <li>消息读取与云端 AI 能力做了清晰分层</li>
-                            <li>远端设备授权失败时不再是黑盒状态</li>
-                            <li>继续沿用“人工最终确认发送”的安全边界</li>
-                        </ul>
-                        <div style="margin-top:14px;">
-                            <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">下载 0.7.7</a>
-                        </div>
-                    </div>
-                    <div class="release-card" style="margin-top:12px;">
-                        <h3>版本发布规则</h3>
-                        <p>每次发版都应同步更新版本号、发布日期、下载包和更新摘要。建议所有正式学员只用“最新稳定版”。</p>
-                    </div>
-                </section>
-
-                <section class="section" id="rights">
-                    <h2>学员权益与授权口径</h2>
-                    <div class="rights-card">
-                        <h3>准入门槛</h3>
-                        <p>只有和邦印有过历史合作业务的同学，才有资格申请这套软件的付费使用权。目前不对外部公开用户开放。</p>
-                    </div>
-                    <div class="rights-card" style="margin-top:12px;">
-                        <h3>陪跑学员</h3>
-                        <ul class="bullet-list">
-                            <li>现在的陪跑学员：所有新工具的新功能，默认给 6 个月使用权限。</li>
-                            <li>仍在服务期内的陪跑学员：免费期 = 服务剩余时间 + 1 个月。</li>
-                            <li>历史陪跑学员：所有功能免费开放 1 个月。</li>
-                        </ul>
-                    </div>
-                    <div class="rights-card" style="margin-top:12px;">
-                        <h3>课程学员</h3>
-                        <p>单独购买课程的学员，可免费试用 15 天。到期后是否续费，以授权后台配置为准。</p>
-                    </div>
-                    <div class="rights-card" style="margin-top:12px;">
-                        <h3>付费续费参考</h3>
-                        <ul class="bullet-list">
-                            <li>月付：99 元 / 月</li>
-                            <li>半年付：420 元 / 6 个月</li>
-                            <li>年付：600 元 / 12 个月</li>
-                        </ul>
-                        <p style="margin-top:12px;">这组价格适合当前“小规模、内部授权、持续迭代”的产品阶段。后续随着软件生态完善，价格可以再上调。</p>
-                    </div>
-                </section>
-
-                <section class="section">
-                    <h2>联系与支持</h2>
-                    <p>如果你已经是合作学员，但还没有拿到授权码，请直接联系邦印处理授权。</p>
-                    <p>如果你已激活但更换了电脑、浏览器或远端环境，需要先让管理员重置设备绑定，再重新激活。</p>
-                </section>
+            <div class="faq-grid">
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">开放范围</span>
+                        <span class="lang-en">Eligibility</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">所有软件仅限有合作历史的朋友购买与使用。当前不对外公开开放。</span>
+                        <span class="lang-en">All software is limited to people with prior collaboration history. It is not publicly open.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">服务期内陪跑学员</span>
+                        <span class="lang-en">Active Coaching</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">免费使用期限为服务剩余时间 + 1 个月。现有软件与后续新开发的软件，统一按这个标准执行。</span>
+                        <span class="lang-en">Free access lasts through the remaining coaching term plus one extra month. The same rule applies to current and future software.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">历史陪跑学员</span>
+                        <span class="lang-en">Past Coaching</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">即使陪跑服务已经到期，仍保留 1 个月免费使用期。后续如需继续使用，再单独开通。</span>
+                        <span class="lang-en">Even after coaching ends, one extra free month remains available. Continued access can be opened separately afterward.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">课程学员</span>
+                        <span class="lang-en">Course Students</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">这里的课程学员，指仅购买了我们课程的学员。默认提供 15 天体验期，用来完成安装、激活和基础上手。</span>
+                        <span class="lang-en">Course students here means users who purchased our course only. A 15-day trial is included for setup, activation, and basic onboarding.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">体验期规则</span>
+                        <span class="lang-en">Trial Rule</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">各类学员统一提供 15 天体验期。该体验规则同样适用于后续新开发的软件，且不对外开放。</span>
+                        <span class="lang-en">All student groups receive a unified 15-day trial. The same rule also applies to future software and is not public.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">当前交付范围</span>
+                        <span class="lang-en">Current Scope</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">插件当前稳定交付消息、订单、定价。Listing 工作台单独开放，不并入当前插件。</span>
+                        <span class="lang-en">The stable plugin currently includes messages, orders, and pricing. The Listing workbench will be opened separately, not folded into the plugin.</span>
+                    </p>
+                </article>
             </div>
-        </div>
+        </section>
+
+        <section class="section" id="delivery">
+            <div class="section-head">
+                <div class="section-kicker">Delivery</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">下载、版本、安装</span>
+                    <span class="lang-en">Download, Version, Installation</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">这里就是正式入口。</span>
+                    <span class="lang-en">This is the formal delivery entry.</span>
+                </p>
+            </div>
+
+            <div class="delivery-grid">
+                <div class="info-card">
+                    <h3>
+                        <span class="lang-zh">当前版本</span>
+                        <span class="lang-en">Current Release</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">版本号：0.7.7</span>
+                        <span class="lang-en">Version: 0.7.7</span>
+                    </p>
+                    <div class="meta-row" style="margin-top:16px;margin-bottom:16px;">
+                        <div class="pill">ASM Assistant</div>
+                        <div class="pill">ZIP</div>
+                        <div class="pill">
+                            <span class="lang-zh">手动安装</span>
+                            <span class="lang-en">Manual Install</span>
+                        </div>
+                    </div>
+                    <div class="row-actions">
+                        <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">
+                            <span class="lang-zh">下载 ZIP</span>
+                            <span class="lang-en">Download ZIP</span>
+                        </a>
+                        <a class="btn btn-secondary" href="#faq">
+                            <span class="lang-zh">看 FAQ</span>
+                            <span class="lang-en">View FAQ</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="delivery-stack">
+                    <div class="info-card">
+                        <h3>
+                            <span class="lang-zh">适用环境</span>
+                            <span class="lang-en">Compatibility</span>
+                        </h3>
+                        <p>
+                            <span class="lang-zh">Chrome / Etsy 页面 / 单设备授权。</span>
+                            <span class="lang-en">Chrome / Etsy pages / single-device authorization.</span>
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>
+                            <span class="lang-zh">授权方式</span>
+                            <span class="lang-en">Activation</span>
+                        </h3>
+                        <p>
+                            <span class="lang-zh">激活码 + 当前设备。</span>
+                            <span class="lang-en">Activation code + current device.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>
+                    <span class="lang-zh">安装步骤</span>
+                    <span class="lang-en">Install Steps</span>
+                </h3>
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-index">1</div>
+                        <div class="step-copy">
+                            <span class="lang-zh">下载 `asm-assistant-0.7.7.zip` 并解压。</span>
+                            <span class="lang-en">Download `asm-assistant-0.7.7.zip` and unzip it.</span>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-index">2</div>
+                        <div class="step-copy">
+                            <span class="lang-zh">打开 Chrome 扩展管理页，开启开发者模式。</span>
+                            <span class="lang-en">Open Chrome extensions and turn on Developer mode.</span>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-index">3</div>
+                        <div class="step-copy">
+                            <span class="lang-zh">点击“加载已解压的扩展程序”，选择解压后的目录。</span>
+                            <span class="lang-en">Click “Load unpacked” and select the unzipped folder.</span>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-index">4</div>
+                        <div class="step-copy">
+                            <span class="lang-zh">打开插件，输入激活码，完成授权。</span>
+                            <span class="lang-en">Open the extension, enter the activation code, and finish activation.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <div class="section-head">
+                <div class="section-kicker">FAQ</div>
+                <h2 class="section-title">FAQ</h2>
+                <p class="section-copy">
+                    <span class="lang-zh">常见问题放在这里。</span>
+                    <span class="lang-en">Common questions live here.</span>
+                </p>
+            </div>
+
+            <div class="faq-grid">
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">谁可以使用？</span>
+                        <span class="lang-en">Who can use it?</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">邀请制。默认不对外公开。</span>
+                        <span class="lang-en">Invite only. Not publicly open by default.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">消息会自动发送吗？</span>
+                        <span class="lang-en">Will it auto-send messages?</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">不会。插件只生成建议回复，最终发送由人工完成。</span>
+                        <span class="lang-en">No. It drafts suggestions only. Final send stays manual.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">授权是怎么生效的？</span>
+                        <span class="lang-en">How does activation work?</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">一套激活码绑定当前设备，后台按模块控制可见性和到期时间。</span>
+                        <span class="lang-en">One activation code is tied to the current device. Feature visibility and expiry are controlled per module from the backend.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">为什么没有调研模块？</span>
+                        <span class="lang-en">Why no research module?</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">当前稳定插件只保留消息、订单、定价。研究与 Listing 相关能力会独立成网页工具。</span>
+                        <span class="lang-en">The stable plugin keeps only messages, orders, and pricing. Research and listing-related work will live as separate web tools.</span>
+                    </p>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">后续会继续更新吗？</span>
+                        <span class="lang-en">Will it keep updating?</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">会。版本会持续迭代，下载入口也会放在这里。</span>
+                        <span class="lang-en">Yes. New versions will keep shipping, and this page remains the download entry.</span>
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="section-head">
+                <div class="section-kicker">Contact</div>
+                <h2 class="section-title">
+                    <span class="lang-zh">联系</span>
+                    <span class="lang-en">Contact</span>
+                </h2>
+                <p class="section-copy">
+                    <span class="lang-zh">需要购买、开通或继续沟通，就从这里进入。</span>
+                    <span class="lang-en">Use these channels for purchase, activation, or further discussion.</span>
+                </p>
+            </div>
+
+            <div class="faq-grid">
+                <article class="faq-card">
+                    <h3>X</h3>
+                    <p>
+                        <span class="lang-zh">个人动态、公开输出、更新记录。</span>
+                        <span class="lang-en">Personal updates, public writing, and release notes.</span>
+                    </p>
+                    <div class="row-actions" style="margin-top:14px;">
+                        <a class="btn btn-secondary" href="https://x.com/richbangyin" target="_blank" rel="noreferrer">x.com/richbangyin</a>
+                    </div>
+                </article>
+                <article class="faq-card">
+                    <h3>
+                        <span class="lang-zh">邮箱</span>
+                        <span class="lang-en">Email</span>
+                    </h3>
+                    <p>
+                        <span class="lang-zh">课程、工具、授权与合作咨询。</span>
+                        <span class="lang-en">For course, tools, activation, and collaboration inquiries.</span>
+                    </p>
+                    <div class="row-actions" style="margin-top:14px;">
+                        <a class="btn btn-secondary" href="mailto:rich@bangyin.me">rich@bangyin.me</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="note">
+            <strong>
+                <span class="lang-zh">Bangyin Tools</span>
+                <span class="lang-en">Bangyin Tools</span>
+            </strong>
+            <p>
+                <span class="lang-zh">稳定插件先交付消息、订单、定价。Listing 工作台继续开发。</span>
+                <span class="lang-en">The stable plugin ships messages, orders, and pricing first. The Listing workbench continues in development.</span>
+            </p>
+        </section>
 
         <footer>
-            <p>ASM Assistant 是邦印内部学员使用的软件，不面向公开市场开放分发。</p>
-            <p style="margin-top:8px;">© 2026 邦印 Bangyin. All rights reserved.</p>
+            <div>Bangyin Tools</div>
+            <div style="margin-top:8px;">© 2026 Bangyin. All rights reserved.</div>
         </footer>
     </div>
 </body>

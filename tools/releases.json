@@ -13,8 +13,7 @@
   "modules": [
     "messages",
     "orders",
-    "pricing",
-    "research"
+    "pricing"
   ],
   "releases": [
     {
