@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Bangyin 店铺申诉草稿工具。只填店铺名、在售产品和当前 IP，直接生成分段申诉材料。" />
+    <title>Bangyin Appeal | 店铺申诉草稿</title>
+    <script type="module" crossorigin src="./assets/index-TM8FGjzZ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D1UrakgJ.css">
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #root {
+        flex: 1 0 auto;
+      }
+
+      footer {
+        padding: 18px 16px 28px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .footer-stack {
+        display: grid;
+        gap: 14px;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .footer-copyright {
+        color: #7a6d63;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .footer-contacts {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .footer-contact {
+        display: grid;
+        gap: 6px;
+        min-width: 176px;
+        padding: 12px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(31, 24, 20, 0.08);
+        background: rgba(255, 255, 255, 0.74);
+        box-shadow: 0 10px 24px rgba(45, 31, 16, 0.05);
+      }
+
+      .footer-contact-label {
+        color: #9a4a17;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .footer-contact-value {
+        font-size: 15px;
+        line-height: 1.4;
+        font-weight: 700;
+        color: #201814;
+      }
+
+      @media (max-width: 720px) {
+        .footer-contacts {
+          width: 100%;
+          flex-direction: column;
+        }
+
+        .footer-contact {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <footer>
+      <div class="footer-stack">
+        <div class="footer-copyright">2026 邦印 All Rights Reserved</div>
+        <div class="footer-contacts" aria-label="联系方式">
+          <div class="footer-contact">
+            <span class="footer-contact-label">公众号</span>
+            <span class="footer-contact-value">邦印成长日记</span>
+          </div>
+          <div class="footer-contact">
+            <span class="footer-contact-label">个人微信</span>
+            <span class="footer-contact-value">richbangin</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>这个产品能不能做？ | Bangyin</title>
+  <meta name="description" content="输入产品名或粘贴图片，判断产品在 Etsy 能不能做，以及跨境物流小包能不能发。">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f2ea;
+      --panel: rgba(255, 255, 255, 0.96);
+      --card: rgba(255, 255, 255, 0.92);
+      --line: rgba(23, 33, 43, 0.1);
+      --ink: #17212b;
+      --muted: #667085;
+      --accent: #ef5a29;
+      --accent-deep: #d94d1a;
+      --accent-soft: #fff1e8;
+      --green: #1d7c47;
+      --green-soft: rgba(29, 124, 71, 0.12);
+      --amber: #9e6417;
+      --amber-soft: rgba(158, 100, 23, 0.12);
+      --red: #a03026;
+      --red-soft: rgba(160, 48, 38, 0.12);
+      --blue: #305d96;
+      --blue-soft: rgba(48, 93, 150, 0.12);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+      --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.06);
+      --sans: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(239, 90, 41, 0.14), transparent 30%),
+        linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .page-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 20px 72px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: clamp(20px, 4vh, 40px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #f57a49 0%, #dd5b2e 100%);
+      color: #fff;
+      letter-spacing: 0.08em;
+      font-size: 13px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .brand-copy strong {
+      font-size: 16px;
+      line-height: 1.1;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link,
+    .taxonomy-pill,
+    .upload-btn,
+    .secondary-btn,
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.86);
+      color: #475467;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    main {
+      width: min(100%, 860px);
+      flex: 1 0 auto;
+      display: grid;
+      gap: 18px;
+      margin: 0 auto;
+      align-content: start;
+    }
+
+    body[data-page-state="focus"] main {
+      padding: clamp(56px, 10vh, 104px) 0 clamp(64px, 12vh, 132px);
+      gap: 14px;
+      align-content: start;
+    }
+
+    body[data-page-state="focus"] .hero,
+    body[data-page-state="focus"] .search-shell,
+    body[data-page-state="focus"] .security-shell,
+    body[data-page-state="focus"] .state-shell,
+    body[data-page-state="focus"] .error-shell {
+      width: min(100%, 760px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+    }
+
+    h1 {
+      max-width: none;
+      margin: 0 auto;
+      font-size: clamp(32px, 4.8vw, 58px);
+      font-weight: 740;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+      margin: 10px auto 0;
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.78;
+    }
+
+    .search-shell,
+    .state-shell,
+    .report-shell,
+    .ecosystem-shell {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .search-shell {
+      padding: 7px;
+      border-color: rgba(23, 33, 43, 0.06);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow:
+        0 12px 28px rgba(24, 32, 42, 0.08),
+        0 2px 8px rgba(24, 32, 42, 0.04);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .search-shell.has-preview {
+      padding: 10px;
+      border-radius: 34px;
+    }
+
+    .search-shell.is-dragover {
+      border-color: rgba(239, 90, 41, 0.28);
+      box-shadow: 0 0 0 6px rgba(239, 90, 41, 0.08), 0 12px 28px rgba(24, 32, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .ecosystem-head h2 {
+      font-size: clamp(28px, 4vw, 38px);
+    }
+
+    .ecosystem-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 58px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 17px;
+      box-shadow: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .search-input::placeholder {
+      color: #9aa2ae;
+    }
+
+    .search-input:focus {
+      outline: none;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .upload-btn,
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .upload-btn,
+    .nav-link,
+    .promo-link {
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary-btn {
+      min-width: 108px;
+      border: 0;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(239, 90, 41, 0.2);
+    }
+
+    .upload-btn {
+      min-width: 88px;
+      background: rgba(247, 247, 248, 0.96);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.36);
+    }
+
+    .primary-btn:hover:not(:disabled),
+    .secondary-btn:hover:not(:disabled),
+    .upload-btn:hover:not(:disabled),
+    .nav-link:hover,
+    .promo-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary-btn:disabled,
+    .secondary-btn:disabled,
+    .upload-btn:disabled {
+      opacity: 0.68;
+      cursor: wait;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-note,
+    .state-copy,
+    .report-copy,
+    .report-card p,
+    .suggestion-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .file-note {
+      font-size: 13px;
+    }
+
+    .preview-shell {
+      margin-top: 10px;
+      padding: 14px;
+      border-radius: 28px;
+      border: 1px solid rgba(23, 33, 43, 0.06);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 243, 237, 0.92));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .preview-shell[hidden],
+    .security-shell[hidden],
+    .state-shell[hidden],
+    .report-shell[hidden],
+    .ecosystem-shell[hidden],
+    .detail-block[hidden] {
+      display: none;
+    }
+
+    .preview-image {
+      display: block;
+      width: min(100%, 360px);
+      max-height: 280px;
+      margin: 0 auto;
+      object-fit: contain;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .security-shell {
+      display: flex;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .turnstile-widget {
+      width: min(100%, 420px);
+      min-height: 66px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .state-shell,
+    .report-shell,
+    .ecosystem-shell {
+      padding: 20px;
+    }
+
+    .state-shell h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      margin-bottom: 10px;
+    }
+
+    .loading-bar {
+      width: min(420px, 100%);
+      height: 10px;
+      margin-top: 18px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(22, 32, 42, 0.08);
+    }
+
+    .loading-bar span {
+      display: block;
+      width: 34%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent) 0%, #f29164 100%);
+      animation: loading 1.15s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      0% { transform: translateX(-18%) scaleX(0.92); }
+      50% { transform: translateX(152%) scaleX(1.05); }
+      100% { transform: translateX(304%) scaleX(0.92); }
+    }
+
+    .report-shell.is-allow {
+      border-color: rgba(29, 124, 71, 0.18);
+      background: linear-gradient(135deg, rgba(246, 255, 249, 0.96), rgba(236, 247, 239, 0.9));
+    }
+
+    .report-shell.is-conditional {
+      border-color: rgba(158, 100, 23, 0.2);
+      background: linear-gradient(135deg, rgba(255, 251, 244, 0.96), rgba(249, 239, 221, 0.92));
+    }
+
+    .report-shell.is-blocked {
+      border-color: rgba(160, 48, 38, 0.18);
+      background: linear-gradient(135deg, rgba(255, 247, 245, 0.96), rgba(250, 231, 228, 0.92));
+    }
+
+    .report-title {
+      font-size: clamp(32px, 5vw, 46px);
+      margin: 12px 0 8px;
+    }
+
+    .report-copy {
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .report-card,
+    .detail-block,
+    .ecosystem-card {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(23, 33, 43, 0.08);
+      background: rgba(255, 255, 255, 0.84);
+    }
+
+    .report-card h3,
+    .detail-block h3 {
+      font-size: 22px;
+    }
+
+    .suggestion-box {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(22, 32, 42, 0.08);
+    }
+
+    .suggestion-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #2d3945;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .detail-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .detail-stack[hidden] {
+      display: none;
+    }
+
+    .issue-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .issue-item {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(22, 32, 42, 0.08);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .issue-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #293743;
+    }
+
+    .issue-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .issue-meta {
+      margin-top: 8px;
+      color: #66727d;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .ecosystem-shell {
+      background: linear-gradient(180deg, rgba(255, 246, 238, 0.78), rgba(255, 255, 255, 0.96));
+    }
+
+    .ecosystem-head {
+      margin-bottom: 14px;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(239, 90, 41, 0.1);
+      color: #b54708;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .promo-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .promo-link {
+      flex: 1 1 220px;
+      min-height: 54px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(23, 33, 43, 0.08);
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(23, 33, 43, 0.08);
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-stack {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .footer-copyright {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .footer-contacts {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-contact {
+      display: grid;
+      gap: 6px;
+      min-width: 176px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(23, 33, 43, 0.08);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .footer-contact-label {
+      color: var(--accent-deep);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-contact-value {
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .status-allow,
+    .status-likely,
+    .status-pass {
+      color: var(--green);
+      background: var(--green-soft);
+      border-color: rgba(29, 124, 71, 0.18);
+    }
+
+    .status-conditional,
+    .status-restricted,
+    .status-review {
+      color: var(--amber);
+      background: var(--amber-soft);
+      border-color: rgba(158, 100, 23, 0.18);
+    }
+
+    .status-blocked,
+    .status-fail {
+      color: var(--red);
+      background: var(--red-soft);
+      border-color: rgba(160, 48, 38, 0.18);
+    }
+
+    .status-na {
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-color: rgba(48, 93, 150, 0.18);
+    }
+
+    @media (max-width: 720px) {
+      .page-shell {
+        padding: 16px 14px 60px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+
+      .site-nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      body[data-page-state="focus"] main {
+        padding-top: clamp(34px, 8vh, 68px);
+        gap: 12px;
+      }
+
+      body[data-page-state="focus"] .hero,
+      body[data-page-state="focus"] .search-shell,
+      body[data-page-state="focus"] .security-shell,
+      body[data-page-state="focus"] .state-shell,
+      body[data-page-state="focus"] .error-shell {
+        width: 100%;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(26px, 7.6vw, 34px);
+        line-height: 1.04;
+      }
+
+      .search-row,
+      .report-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-actions {
+        width: 100%;
+        gap: 10px;
+      }
+
+      .primary-btn,
+      .secondary-btn,
+      .upload-btn {
+        flex: 1 1 calc(50% - 5px);
+        min-height: 50px;
+      }
+
+      .search-shell,
+      .state-shell,
+      .report-shell,
+      .ecosystem-shell {
+        padding: 18px;
+      }
+
+      .search-shell {
+        border-radius: 28px;
+      }
+
+      .search-shell.has-preview {
+        border-radius: 28px;
+      }
+
+      .search-input {
+        min-height: 54px;
+        padding: 0 18px;
+        font-size: 15px;
+      }
+
+      .preview-shell {
+        padding: 12px;
+        border-radius: 22px;
+      }
+
+      .preview-image {
+        width: min(100%, 260px);
+        max-height: 220px;
+      }
+
+      .hero-copy {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 13px;
+        line-height: 1.74;
+      }
+
+      .promo-link {
+        width: 100%;
+      }
+
+      .footer-contacts {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .footer-contact {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <div class="brand-mark">BY</div>
+      <div class="brand-copy">
+        <strong>Bangyin</strong>
+        <span>bangyin.me</span>
+      </div>
+    </a>
+
+    <nav class="site-nav" aria-label="Bangyin navigation">
+      <a class="nav-link" href="/">主站</a>
+      <a class="nav-link" href="/course">课程</a>
+      <a class="nav-link" href="/tools">工具</a>
+      <a class="nav-link" href="/shops">店铺</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>这个产品能不能做？</h1>
+      <p class="hero-copy">输入产品名或粘贴图片，判断产品在 Etsy 能不能做，以及跨境物流小包能不能发。</p>
+    </section>
+
+    <section id="searchShell" class="search-shell">
+      <div class="search-row">
+        <input id="rawInput" class="search-input" type="text" placeholder="输入产品名或者把图片粘贴到这里" autocomplete="off">
+        <div class="search-actions">
+          <label class="upload-btn" for="imageInput">上传图片</label>
+          <button id="identifyBtn" class="primary-btn" type="button">开始判断</button>
+        </div>
+      </div>
+
+      <input id="imageInput" class="file-input" type="file" accept="image/*">
+
+      <div id="previewShell" class="preview-shell" hidden>
+        <img id="previewImage" class="preview-image" alt="产品图片预览">
+      </div>
+    </section>
+
+    <section id="securityShell" class="security-shell" hidden>
+      <div id="turnstileWidget" class="turnstile-widget"></div>
+    </section>
+
+    <section id="stateShell" class="state-shell" aria-live="polite" hidden>
+      <h2 id="stateTitle">正在处理</h2>
+      <p id="stateCopy" class="state-copy">请稍等。</p>
+      <div class="loading-bar" aria-hidden="true"><span></span></div>
+    </section>
+
+    <section id="errorShell" class="state-shell" hidden>
+      <h2>暂时没拿到结果</h2>
+      <p id="errorMessage" class="state-copy">请稍后重试。</p>
+    </section>
+
+    <section id="reportShell" class="report-shell" hidden>
+      <span class="section-kicker">Result</span>
+      <h2 id="overallLabel" class="report-title">可以做</h2>
+      <p id="overallSummary" class="report-copy"></p>
+
+      <div class="report-grid">
+        <article class="report-card">
+          <div class="card-head">
+            <h3>合规</h3>
+            <span id="saleVerdictChip" class="chip status-conditional">需要补信息</span>
+          </div>
+          <p id="saleSummary"></p>
+        </article>
+
+        <article class="report-card">
+          <div class="card-head">
+            <h3>物流</h3>
+            <span id="shippingVerdictChip" class="chip status-restricted">运输受限</span>
+          </div>
+          <p id="shippingSummary"></p>
+        </article>
+      </div>
+
+      <div class="suggestion-box">
+        <strong>下一步</strong>
+        <p id="suggestionText">当前不需要额外动作。</p>
+      </div>
+
+      <div id="detailStack" class="detail-stack">
+        <section id="complianceIssuesBlock" class="detail-block" hidden>
+          <h3>合规问题</h3>
+          <div id="complianceIssues" class="issue-list"></div>
+        </section>
+
+        <section id="shippingIssuesBlock" class="detail-block" hidden>
+          <h3>物流问题</h3>
+          <div id="shippingIssues" class="issue-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="promoShell" class="ecosystem-shell" hidden>
+      <div class="ecosystem-head">
+        <span class="section-kicker">Next</span>
+        <h2>继续做，就看这里</h2>
+        <p>先看能不能做，再决定学，还是直接落地。</p>
+      </div>
+
+      <div class="promo-links">
+        <a class="promo-link" href="/course">看课程</a>
+        <a class="promo-link" href="/shops">看店铺方案</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-stack">
+      <div class="footer-copyright">2026 邦印 All Rights Reserved</div>
+      <div class="footer-contacts" aria-label="联系方式">
+        <div class="footer-contact">
+          <span class="footer-contact-label">公众号</span>
+          <span class="footer-contact-value">邦印成长日记</span>
+        </div>
+        <div class="footer-contact">
+          <span class="footer-contact-label">个人微信</span>
+          <span class="footer-contact-value">richbangin</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <script>
+    const API_ORIGIN = (() => {
+      const explicit = String(window.BANGYIN_FEASIBILITY_API_ORIGIN || '').trim();
+      if (explicit) return explicit.replace(/\/$/, '');
+
+      const host = window.location.hostname;
+      if (!host || host === '127.0.0.1' || host === 'localhost') {
+        if (window.location.port === '3000') {
+          return window.location.origin;
+        }
+        return 'http://127.0.0.1:3000';
+      }
+
+      return window.location.origin.replace(/\/$/, '');
+    })();
+    const IS_LOCAL_PREVIEW = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+    const FEASIBILITY_SESSION_URL = `${API_ORIGIN}/api/etsy-feasibility-session`;
+    const FEASIBILITY_TOKEN_HEADER = 'X-Bangyin-Feasibility-Token';
+    const FEASIBILITY_TURNSTILE_FIELD_NAME = 'cf-turnstile-response';
+    const FEASIBILITY_TURNSTILE_ACTION = 'etsy_feasibility';
+    const FEASIBILITY_TURNSTILE_SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+
+    const searchShell = document.getElementById('searchShell');
+    const rawInput = document.getElementById('rawInput');
+    const imageInput = document.getElementById('imageInput');
+    const previewShell = document.getElementById('previewShell');
+    const previewImage = document.getElementById('previewImage');
+    const securityShell = document.getElementById('securityShell');
+    const turnstileWidget = document.getElementById('turnstileWidget');
+    const identifyBtn = document.getElementById('identifyBtn');
+    const stateShell = document.getElementById('stateShell');
+    const stateTitle = document.getElementById('stateTitle');
+    const stateCopy = document.getElementById('stateCopy');
+    const errorShell = document.getElementById('errorShell');
+    const errorMessage = document.getElementById('errorMessage');
+    const reportShell = document.getElementById('reportShell');
+    const promoShell = document.getElementById('promoShell');
+    const detailStack = document.getElementById('detailStack');
+    const overallLabel = document.getElementById('overallLabel');
+    const overallSummary = document.getElementById('overallSummary');
+    const saleVerdictChip = document.getElementById('saleVerdictChip');
+    const saleSummary = document.getElementById('saleSummary');
+    const shippingVerdictChip = document.getElementById('shippingVerdictChip');
+    const shippingSummary = document.getElementById('shippingSummary');
+    const suggestionText = document.getElementById('suggestionText');
+    const complianceIssuesBlock = document.getElementById('complianceIssuesBlock');
+    const complianceIssues = document.getElementById('complianceIssues');
+    const shippingIssuesBlock = document.getElementById('shippingIssuesBlock');
+    const shippingIssues = document.getElementById('shippingIssues');
+
+    let previewUrl = '';
+    let feasibilityChallengeToken = '';
+    let feasibilityChallengeExpiresAt = 0;
+    let feasibilityTurnstileEnabled = false;
+    let feasibilityTurnstileSiteKey = '';
+    let feasibilityTurnstileWidgetId = null;
+    let feasibilityTurnstileToken = '';
+    let feasibilityTurnstileTokenIssuedAt = 0;
+    let feasibilityTurnstileScriptPromise = null;
+    let feasibilityTurnstileRenderPromise = null;
+    let feasibilityTurnstileTokenWaiters = [];
+
+    function sanitizeApiErrorMessage(message, fallback = '暂时没拿到结果，请稍后再试。') {
+      const text = String(message || '').trim();
+      if (!text) return fallback;
+      if (/llm_failed_\d+/i.test(text)) return fallback;
+      if (/anthropic|gateway|upstream|overloaded|service unavailable|internal server error/i.test(text)) {
+        return fallback;
+      }
+      return text;
+    }
+
+    function createRequestError(message, extra = {}) {
+      const error = new Error(message);
+      Object.assign(error, extra);
+      return error;
+    }
+
+    function resolveTurnstileGlobal() {
+      return window.turnstile && typeof window.turnstile.render === 'function' ? window.turnstile : null;
+    }
+
+    function isTurnstileTokenFresh() {
+      return !!feasibilityTurnstileToken
+        && Date.now() - feasibilityTurnstileTokenIssuedAt < 270000;
+    }
+
+    function clearTurnstileToken() {
+      feasibilityTurnstileToken = '';
+      feasibilityTurnstileTokenIssuedAt = 0;
+    }
+
+    function settleTurnstileTokenWaiters(token, error = null) {
+      const waiters = feasibilityTurnstileTokenWaiters;
+      feasibilityTurnstileTokenWaiters = [];
+      waiters.forEach(({ resolve, reject, timeoutId }) => {
+        window.clearTimeout(timeoutId);
+        if (error) reject(error);
+        else resolve(token);
+      });
+    }
+
+    function setTurnstileToken(token) {
+      feasibilityTurnstileToken = String(token || '').trim();
+      feasibilityTurnstileTokenIssuedAt = feasibilityTurnstileToken ? Date.now() : 0;
+      if (feasibilityTurnstileToken) {
+        settleTurnstileTokenWaiters(feasibilityTurnstileToken);
+      }
+    }
+
+    function waitForTurnstileToken(timeoutMs = 16000) {
+      if (isTurnstileTokenFresh()) {
+        return Promise.resolve(feasibilityTurnstileToken);
+      }
+
+      return new Promise((resolve, reject) => {
+        const timeoutId = window.setTimeout(() => {
+          feasibilityTurnstileTokenWaiters = feasibilityTurnstileTokenWaiters.filter((item) => item.resolve !== resolve);
+          reject(createRequestError('请先完成人机验证后再试。', { code: 'turnstile_timeout' }));
+        }, timeoutMs);
+
+        feasibilityTurnstileTokenWaiters.push({ resolve, reject, timeoutId });
+      });
+    }
+
+    function loadTurnstileScript() {
+      if (resolveTurnstileGlobal()) {
+        return Promise.resolve(resolveTurnstileGlobal());
+      }
+
+      if (feasibilityTurnstileScriptPromise) {
+        return feasibilityTurnstileScriptPromise;
+      }
+
+      feasibilityTurnstileScriptPromise = new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${FEASIBILITY_TURNSTILE_SCRIPT_URL}"]`);
+        if (existing) {
+          existing.addEventListener('load', () => resolve(resolveTurnstileGlobal()), { once: true });
+          existing.addEventListener('error', () => reject(createRequestError('安全校验脚本加载失败，请稍后再试。')), { once: true });
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = FEASIBILITY_TURNSTILE_SCRIPT_URL;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => resolve(resolveTurnstileGlobal());
+        script.onerror = () => reject(createRequestError('安全校验脚本加载失败，请稍后再试。'));
+        document.head.appendChild(script);
+      });
+
+      return feasibilityTurnstileScriptPromise;
+    }
+
+    async function ensureTurnstileWidget() {
+      if (!feasibilityTurnstileEnabled || !feasibilityTurnstileSiteKey) {
+        securityShell.hidden = true;
+        return null;
+      }
+
+      if (feasibilityTurnstileWidgetId !== null) {
+        securityShell.hidden = false;
+        return feasibilityTurnstileWidgetId;
+      }
+
+      if (feasibilityTurnstileRenderPromise) {
+        return feasibilityTurnstileRenderPromise;
+      }
+
+      feasibilityTurnstileRenderPromise = (async () => {
+        await loadTurnstileScript();
+        const turnstile = resolveTurnstileGlobal();
+        if (!turnstile || typeof turnstile.ready !== 'function') {
+          throw createRequestError('安全校验初始化失败，请稍后再试。');
+        }
+
+        securityShell.hidden = false;
+
+        await new Promise((resolve) => turnstile.ready(resolve));
+        feasibilityTurnstileWidgetId = turnstile.render(turnstileWidget, {
+          sitekey: feasibilityTurnstileSiteKey,
+          action: FEASIBILITY_TURNSTILE_ACTION,
+          appearance: 'interaction-only',
+          size: 'flexible',
+          theme: 'auto',
+          callback(token) {
+            setTurnstileToken(token);
+          },
+          'expired-callback': () => {
+            clearTurnstileToken();
+            settleTurnstileTokenWaiters('', createRequestError('人机验证已过期，请重试。', { code: 'turnstile_expired' }));
+          },
+          'timeout-callback': () => {
+            clearTurnstileToken();
+            settleTurnstileTokenWaiters('', createRequestError('人机验证已超时，请重试。', { code: 'turnstile_timeout' }));
+          },
+          'error-callback': () => {
+            clearTurnstileToken();
+            settleTurnstileTokenWaiters('', createRequestError('安全校验暂时不可用，请稍后再试。', { code: 'turnstile_error' }));
+          }
+        });
+
+        return feasibilityTurnstileWidgetId;
+      })();
+
+      try {
+        return await feasibilityTurnstileRenderPromise;
+      } finally {
+        feasibilityTurnstileRenderPromise = null;
+      }
+    }
+
+    async function syncTurnstileConfig(config) {
+      const enabled = !!config?.enabled && !!config?.siteKey;
+      feasibilityTurnstileEnabled = enabled;
+      feasibilityTurnstileSiteKey = enabled ? String(config.siteKey || '').trim() : '';
+
+      if (!enabled) {
+        securityShell.hidden = true;
+        clearTurnstileToken();
+        return;
+      }
+
+      await ensureTurnstileWidget();
+    }
+
+    async function ensureTurnstileToken() {
+      if (!feasibilityTurnstileEnabled) {
+        return '';
+      }
+
+      await ensureTurnstileWidget();
+      if (isTurnstileTokenFresh()) {
+        return feasibilityTurnstileToken;
+      }
+
+      clearTurnstileToken();
+      const turnstile = resolveTurnstileGlobal();
+      if (turnstile && feasibilityTurnstileWidgetId !== null) {
+        turnstile.reset(feasibilityTurnstileWidgetId);
+      }
+
+      return waitForTurnstileToken();
+    }
+
+    function resetTurnstileWidget() {
+      if (!feasibilityTurnstileEnabled) return;
+      clearTurnstileToken();
+      const turnstile = resolveTurnstileGlobal();
+      if (turnstile && feasibilityTurnstileWidgetId !== null) {
+        turnstile.reset(feasibilityTurnstileWidgetId);
+      }
+    }
+
+    async function readApiPayload(response, fallbackMessage) {
+      let payload = null;
+
+      try {
+        payload = await response.json();
+      } catch (error) {
+        payload = null;
+      }
+
+      if (!response.ok || !payload || !payload.success) {
+        throw createRequestError(
+          sanitizeApiErrorMessage(payload?.error, fallbackMessage),
+          {
+            status: response.status,
+            code: payload?.code || '',
+            payload
+          }
+        );
+      }
+
+      return payload;
+    }
+
+    async function ensureFeasibilitySession(forceRefresh = false) {
+      const now = Date.now();
+      if (!forceRefresh && feasibilityChallengeToken && feasibilityChallengeExpiresAt - now > 15000) {
+        return feasibilityChallengeToken;
+      }
+
+      let response;
+      try {
+        response = await fetch(FEASIBILITY_SESSION_URL, {
+          method: 'GET',
+          credentials: 'same-origin'
+        });
+      } catch (error) {
+        throw createRequestError(
+          IS_LOCAL_PREVIEW
+            ? '接口暂时连不上，请先启动 3000 端口接口。'
+            : '网络连接失败，请稍后再试。',
+          { isNetworkError: true }
+        );
+      }
+
+      const payload = await readApiPayload(response, '当前请求校验失败，请刷新页面后重试。');
+      await syncTurnstileConfig(payload?.data?.turnstile || null);
+      feasibilityChallengeToken = String(payload?.data?.challengeToken || '').trim();
+      feasibilityChallengeExpiresAt = Date.parse(payload?.data?.expiresAt || '') || (Date.now() + 4 * 60 * 1000);
+
+      if (!feasibilityChallengeToken) {
+        throw createRequestError('当前请求校验失败，请刷新页面后重试。');
+      }
+
+      return feasibilityChallengeToken;
+    }
+
+    function setPageState(state) {
+      document.body.dataset.pageState = state;
+    }
+
+    function setBusy(title, copy) {
+      setPageState('focus');
+      stateTitle.textContent = title;
+      stateCopy.textContent = copy;
+      stateShell.hidden = false;
+      errorShell.hidden = true;
+    }
+
+    function clearBusy() {
+      stateShell.hidden = true;
+    }
+
+    function showError(message) {
+      setPageState('focus');
+      clearBusy();
+      errorMessage.textContent = message;
+      errorShell.hidden = false;
+    }
+
+    function clearError() {
+      errorShell.hidden = true;
+    }
+
+    function statusClass(status) {
+      return `status-${status}`;
+    }
+
+    function applyTone(tone) {
+      reportShell.classList.remove('is-allow', 'is-conditional', 'is-blocked');
+      if (tone === 'allow') reportShell.classList.add('is-allow');
+      if (tone === 'conditional') reportShell.classList.add('is-conditional');
+      if (tone === 'blocked') reportShell.classList.add('is-blocked');
+    }
+
+    function updatePreview() {
+      const file = imageInput.files && imageInput.files[0];
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        previewUrl = '';
+      }
+
+      if (!file) {
+        searchShell.classList.remove('has-preview');
+        previewShell.hidden = true;
+        previewImage.removeAttribute('src');
+        return;
+      }
+
+      searchShell.classList.add('has-preview');
+      previewUrl = URL.createObjectURL(file);
+      previewImage.src = previewUrl;
+      previewShell.hidden = false;
+    }
+
+    async function prepareProtectedRequest() {
+      const challengeToken = await ensureFeasibilitySession(true);
+      const turnstileToken = await ensureTurnstileToken();
+      return { challengeToken, turnstileToken };
+    }
+
+    async function requestReport(description, image, security) {
+      const challengeToken = String(security?.challengeToken || '').trim();
+      const turnstileToken = String(security?.turnstileToken || '').trim();
+      let response;
+      const shouldResetTurnstile = !!turnstileToken;
+      try {
+        if (image) {
+          const formData = new FormData();
+          if (description) formData.append('description', description);
+          formData.append('image', image);
+          if (turnstileToken) formData.append(FEASIBILITY_TURNSTILE_FIELD_NAME, turnstileToken);
+
+          response = await fetch(`${API_ORIGIN}/api/etsy-feasibility-check`, {
+            method: 'POST',
+            headers: { [FEASIBILITY_TOKEN_HEADER]: challengeToken },
+            body: formData,
+            credentials: 'same-origin'
+          });
+        } else {
+          response = await fetch(`${API_ORIGIN}/api/etsy-feasibility-check`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              [FEASIBILITY_TOKEN_HEADER]: challengeToken
+            },
+            body: JSON.stringify({
+              description,
+              [FEASIBILITY_TURNSTILE_FIELD_NAME]: turnstileToken
+            }),
+            credentials: 'same-origin'
+          });
+        }
+      } catch (error) {
+        throw createRequestError(
+          IS_LOCAL_PREVIEW
+            ? '接口暂时连不上，请先启动 3000 端口接口。'
+            : '网络连接失败，请稍后再试。',
+          { isNetworkError: true }
+        );
+      } finally {
+        if (shouldResetTurnstile) {
+          resetTurnstileWidget();
+        }
+      }
+
+      const payload = await readApiPayload(response, '暂时没拿到结果，请稍后再试。');
+      return payload.data || {};
+    }
+
+    function renderIssueList(container, block, items) {
+      container.innerHTML = '';
+      const list = Array.isArray(items) ? items.filter(Boolean) : [];
+
+      if (list.length === 0) {
+        block.hidden = true;
+        return;
+      }
+
+      list.forEach((item) => {
+        const card = document.createElement('article');
+        card.className = 'issue-item';
+
+        const title = document.createElement('strong');
+        title.textContent = item.label || item.title || '命中问题';
+        card.appendChild(title);
+
+        const summary = document.createElement('p');
+        summary.textContent = item.summary || item.reason || '';
+        card.appendChild(summary);
+
+        const metaParts = [];
+        if (Array.isArray(item.matchedKeywords) && item.matchedKeywords.length > 0) {
+          metaParts.push(`命中词：${item.matchedKeywords.join('、')}`);
+        }
+        if (Array.isArray(item.refs) && item.refs.length > 0) {
+          metaParts.push(`依据：${item.refs.slice(0, 3).map((ref) => ref.title).join('；')}`);
+        }
+
+        if (metaParts.length > 0) {
+          const meta = document.createElement('div');
+          meta.className = 'issue-meta';
+          meta.textContent = metaParts.join(' | ');
+          card.appendChild(meta);
+        }
+
+        container.appendChild(card);
+      });
+
+      block.hidden = false;
+    }
+
+    function firstSentence(text, fallback = '') {
+      const plain = String(text || '').trim().replace(/\s+/g, ' ');
+      if (!plain) return fallback;
+      const match = plain.match(/^.*?[。！？]/);
+      return match ? match[0] : plain;
+    }
+
+    function compactOverallLabel(data) {
+      const overallVerdict = data.overall?.verdict;
+      const saleVerdict = data.sale?.verdict;
+      const shippingVerdict = data.shipping?.verdict;
+
+      if (overallVerdict === 'allow') return '可以做';
+      if (overallVerdict === 'conditional') {
+        return shippingVerdict === 'restricted' ? '能做，但受限' : '先补信息';
+      }
+      if (overallVerdict === 'blocked') {
+        return saleVerdict === 'blocked' ? '先别做' : '能上架，发不了';
+      }
+      return data.overall?.label || '先补信息';
+    }
+
+    function compactOverallSummary(data) {
+      const overallVerdict = data.overall?.verdict;
+      const saleVerdict = data.sale?.verdict;
+      const shippingVerdict = data.shipping?.verdict;
+
+      if (overallVerdict === 'allow') {
+        return shippingVerdict === 'na'
+          ? '平台侧能做，也不需要走发货链路。'
+          : '平台和物流都没看到明显硬伤。';
+      }
+      if (overallVerdict === 'conditional') {
+        return shippingVerdict === 'restricted'
+          ? '平台基本能做，但物流还要再核。'
+          : '信息还不够，先补清楚再看。';
+      }
+      if (saleVerdict === 'blocked') {
+        return '当前产品定义不适合直接做。';
+      }
+      return '平台可能能上，但按当前链路发不出去。';
+    }
+
+    function compactSaleLabel(sale) {
+      if (sale?.verdict === 'allow') return '能做';
+      if (sale?.verdict === 'blocked') return '别做';
+      return '补信息';
+    }
+
+    function compactSaleSummary(sale) {
+      if (sale?.verdict === 'allow') return '平台侧没看到明显红线。';
+      if (sale?.verdict === 'blocked') return '当前产品定义就有平台风险。';
+      return '原创、授权或品类还要确认。';
+    }
+
+    function compactShippingLabel(shipping) {
+      if (shipping?.verdict === 'na') return '无需发货';
+      if (shipping?.verdict === 'blocked') return '发不了';
+      if (shipping?.verdict === 'restricted') return '受限';
+      return '能发';
+    }
+
+    function compactShippingSummary(shipping) {
+      if (shipping?.verdict === 'na') return '这是数字型产品，不走发货链路。';
+      if (shipping?.verdict === 'blocked') return '按当前属性，大概率发不出去。';
+      if (shipping?.verdict === 'restricted') return '物流属性还要再核，不适合直接发。';
+      return '按当前描述，物流没看到明显硬伤。';
+    }
+
+    function renderReport(data) {
+      setPageState('results');
+      applyTone(data.overall?.tone || 'conditional');
+      overallLabel.textContent = compactOverallLabel(data);
+      overallSummary.textContent = compactOverallSummary(data);
+
+      saleVerdictChip.className = `chip ${statusClass(data.sale?.verdict || 'conditional')}`;
+      saleVerdictChip.textContent = compactSaleLabel(data.sale);
+      saleSummary.textContent = compactSaleSummary(data.sale);
+
+      shippingVerdictChip.className = `chip ${statusClass(data.shipping?.verdict || 'restricted')}`;
+      shippingVerdictChip.textContent = compactShippingLabel(data.shipping);
+      shippingSummary.textContent = compactShippingSummary(data.shipping);
+
+      suggestionText.textContent = firstSentence(
+        (data.nextSteps && data.nextSteps[0]) || '',
+        compactOverallSummary(data)
+      );
+
+      renderIssueList(complianceIssues, complianceIssuesBlock, data.report?.complianceIssues || []);
+      renderIssueList(shippingIssues, shippingIssuesBlock, data.report?.shippingIssues || []);
+      detailStack.hidden = complianceIssuesBlock.hidden && shippingIssuesBlock.hidden;
+
+      reportShell.hidden = false;
+      promoShell.hidden = false;
+      reportShell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function identifyProduct() {
+      const description = rawInput.value.trim();
+      const image = imageInput.files && imageInput.files[0];
+
+      if (!description && !image) {
+        setPageState('focus');
+        rawInput.focus();
+        return;
+      }
+
+      clearError();
+      clearBusy();
+      reportShell.hidden = true;
+      promoShell.hidden = true;
+      identifyBtn.disabled = true;
+
+      try {
+        const security = await prepareProtectedRequest();
+        setBusy(
+          image ? '正在识别并判断产品' : '正在生成结果',
+          image ? '系统正在整理产品信息并判断这个产品能不能做。' : '系统正在判断这个产品能不能做。'
+        );
+        const reportData = await requestReport(description, image, security);
+        renderReport(reportData);
+        clearBusy();
+      } catch (error) {
+        showError(error.message || '暂时没拿到结果，请稍后再试。');
+      } finally {
+        identifyBtn.disabled = false;
+      }
+    }
+
+    function setImageFile(file) {
+      if (!file) return;
+      const transfer = new DataTransfer();
+      transfer.items.add(file);
+      imageInput.files = transfer.files;
+      updatePreview();
+    }
+
+    async function fetchImageAsFile(url) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('无法直接读取这张图片');
+      const blob = await response.blob();
+      if (!String(blob.type || '').startsWith('image/')) {
+        throw new Error('粘贴内容不是可识别图片');
+      }
+      const ext = (blob.type.split('/')[1] || 'png').replace(/[^a-z0-9]/gi, '') || 'png';
+      return new File([blob], `pasted-image.${ext}`, { type: blob.type });
+    }
+
+    function isEditableTarget(target) {
+      if (!(target instanceof HTMLElement)) return false;
+      if (target.isContentEditable) return true;
+      const tagName = String(target.tagName || '').toLowerCase();
+      return tagName === 'input' || tagName === 'textarea';
+    }
+
+    async function handlePasteImage(event) {
+      const clipboard = event.clipboardData;
+      if (!clipboard) return;
+
+      const items = Array.from(clipboard.items || []);
+      const imageItem = items.find((item) => String(item.type || '').startsWith('image/'));
+      if (imageItem) {
+        event.preventDefault();
+        const file = imageItem.getAsFile();
+        if (file) setImageFile(file);
+        return;
+      }
+
+      const html = clipboard.getData('text/html');
+      const text = clipboard.getData('text/plain').trim();
+      let imageUrl = '';
+
+      if (html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        imageUrl = String(doc.querySelector('img')?.src || '').trim();
+      }
+      if (!imageUrl && /^data:image\//i.test(text)) {
+        imageUrl = text;
+      }
+      if (!imageUrl && /^https?:\/\/.+\.(png|jpe?g|webp|gif|bmp|svg)(\?.*)?$/i.test(text)) {
+        imageUrl = text;
+      }
+      if (!imageUrl) return;
+
+      event.preventDefault();
+      try {
+        const file = await fetchImageAsFile(imageUrl);
+        setImageFile(file);
+      } catch (error) {
+        showError(error.message || '无法直接读取这张图片，请改用拖拽或直接复制图片本体。');
+      }
+    }
+
+    function bindPasteToInputSurface() {
+      document.addEventListener('paste', (event) => {
+        if (event.defaultPrevented) return;
+        if (isEditableTarget(event.target)) return;
+        const text = String(event.clipboardData?.getData('text/plain') || '').trim();
+        if (!text) return;
+        rawInput.value = text;
+        rawInput.focus();
+      });
+    }
+
+    function bindDragAndDrop() {
+      const prevent = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      };
+
+      ['dragenter', 'dragover'].forEach((type) => {
+        searchShell.addEventListener(type, (event) => {
+          prevent(event);
+          searchShell.classList.add('is-dragover');
+        });
+      });
+
+      ['dragleave', 'dragend', 'drop'].forEach((type) => {
+        searchShell.addEventListener(type, (event) => {
+          prevent(event);
+          searchShell.classList.remove('is-dragover');
+        });
+      });
+
+      searchShell.addEventListener('drop', (event) => {
+        const files = Array.from(event.dataTransfer?.files || []);
+        const imageFile = files.find((file) => String(file.type || '').startsWith('image/'));
+        if (!imageFile) return;
+        setImageFile(imageFile);
+      });
+    }
+
+    function maybeRunPreviewState() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('preview') !== '1') return;
+
+      rawInput.value = '米妮吊坠项链';
+      searchShell.classList.add('has-preview');
+      previewShell.hidden = false;
+      previewImage.src =
+        'data:image/svg+xml;charset=UTF-8,' +
+        encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080">
+            <rect width="720" height="1080" fill="#ffffff"/>
+            <ellipse cx="360" cy="250" rx="92" ry="84" fill="#1f1a17"/>
+            <ellipse cx="278" cy="164" rx="66" ry="66" fill="#1f1a17"/>
+            <ellipse cx="442" cy="164" rx="66" ry="66" fill="#1f1a17"/>
+            <rect x="346" y="48" width="28" height="160" rx="14" fill="#d7c29a"/>
+            <circle cx="360" cy="46" r="28" fill="none" stroke="#d7c29a" stroke-width="14"/>
+            <path d="M300 316c18-30 52-46 60-46s42 16 60 46v176c0 40-26 72-60 72s-60-32-60-72z" fill="#f7a2bb"/>
+            <rect x="278" y="420" width="46" height="214" rx="23" fill="#f4a0b8"/>
+            <rect x="396" y="420" width="46" height="214" rx="23" fill="#f4a0b8"/>
+            <rect x="258" y="612" width="82" height="42" rx="21" fill="#d93f4d"/>
+            <rect x="380" y="612" width="82" height="42" rx="21" fill="#d93f4d"/>
+            <circle cx="332" cy="364" r="18" fill="#fff4d9"/>
+            <circle cx="388" cy="364" r="18" fill="#fff4d9"/>
+            <circle cx="332" cy="364" r="7" fill="#1f1a17"/>
+            <circle cx="388" cy="364" r="7" fill="#1f1a17"/>
+            <ellipse cx="360" cy="412" rx="34" ry="22" fill="#fff4d9"/>
+            <circle cx="312" cy="420" r="14" fill="#f7b7c8"/>
+            <circle cx="408" cy="420" r="14" fill="#f7b7c8"/>
+          </svg>
+        `);
+    }
+
+    function maybeRunPreviewDemo() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('demo') !== '1') return;
+
+      rawInput.value = '玻璃香薰瓶';
+
+      renderReport({
+        overall: {
+          verdict: 'conditional',
+          tone: 'conditional',
+          label: '能卖，但运输受限',
+          summary: '平台侧基本成立，但物流属性还要继续核。'
+        },
+        sale: {
+          verdict: 'allow',
+          label: '可以卖',
+          summary: '按当前描述，没有看到明显 Etsy 政策红线。'
+        },
+        shipping: {
+          verdict: 'restricted',
+          label: '运输受限',
+          summary: '物流属性还要再核。'
+        },
+        nextSteps: [
+          '先确认是不是带磁、液体、粉末或易碎件，再决定要不要继续做。'
+        ],
+        report: {
+          complianceIssues: [],
+          shippingIssues: [
+            {
+              label: '物流属性待确认',
+              summary: '当前信息不够，先确认材质和运输属性。',
+              matchedKeywords: ['玻璃', '液体'],
+              refs: [{ title: '内部渠道规则' }]
+            }
+          ]
+        }
+      });
+    }
+
+    imageInput.addEventListener('change', updatePreview);
+    identifyBtn.addEventListener('click', identifyProduct);
+    rawInput.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') return;
+      event.preventDefault();
+      identifyProduct();
+    });
+    document.addEventListener('paste', handlePasteImage);
+    bindPasteToInputSurface();
+    bindDragAndDrop();
+    setPageState('focus');
+    maybeRunPreviewState();
+    maybeRunPreviewDemo();
+    ensureFeasibilitySession().catch(() => {});
+  </script>
+</body>
+</html>

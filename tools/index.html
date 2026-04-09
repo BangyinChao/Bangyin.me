@@ -3,25 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangyin Tools</title>
-    <meta name="description" content="Bangyin Tools">
+    <title data-copy-key="meta.title" data-copy-zh="Bangyin Tools | ASM Assistant 运营插件" data-copy-en="Bangyin Tools | ASM Assistant for Etsy Sellers">Bangyin Tools | ASM Assistant 运营插件</title>
+    <meta name="description" content="ASM Assistant 是给 Etsy 卖家的运营插件。消息、订单、定价已上线。先看资格，再下载。">
     <meta name="keywords" content="Bangyin,ASM Assistant,Etsy tools,message assistant,order sync,pricing,listing generator">
+    <link rel="canonical" href="https://bangyin.me/tools/">
+    <link rel="icon" type="image/svg+xml" href="/assets/by-mark.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bangyin.me/tools/">
+    <meta property="og:title" content="Bangyin Tools | ASM Assistant 运营插件">
+    <meta property="og:description" content="消息、订单、定价已上线。先看资格，再下载。">
+    <meta property="og:image" content="https://bangyin.me/assets/og-tools.svg">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bangyin Tools | ASM Assistant 运营插件">
+    <meta name="twitter:description" content="消息、订单、定价已上线。先看资格，再下载。">
+    <meta name="twitter:image" content="https://bangyin.me/assets/og-tools.svg">
     <style>
         :root {
             color-scheme: light;
-            --bg: #f6f2ea;
-            --card: rgba(255,255,255,0.95);
-            --text: #18212b;
-            --muted: #667085;
-            --line: rgba(24,33,43,0.09);
-            --accent: #f25f2a;
-            --accent-dark: #d94d1a;
-            --accent-soft: #fff1e8;
-            --soft: #f5f7fa;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --bg: #fcf7f1;
+            --bg-soft: #f4ede6;
+            --surface: rgba(255,255,255,0.74);
+            --surface-strong: #ffffff;
+            --text: #171311;
+            --text-soft: #5a5149;
+            --muted: #7b7067;
+            --line: rgba(23,19,15,0.08);
+            --brand: #c7683c;
+            --brand-strong: #9d4c2a;
+            --brand-soft: #f7e0d4;
+            --action: #171311;
+            --action-text: #ffffff;
+            --link: #9d4c2a;
+            --focus: #0a72ef;
+            --dark-bg: #12100f;
+            --dark-panel: #1a1715;
+            --dark-line: rgba(255,255,255,0.1);
+            --dark-muted: rgba(255,255,255,0.72);
+            --shadow-soft: 0 14px 28px rgba(34, 23, 12, 0.04);
+            --shadow-float: 0 18px 44px rgba(34, 23, 12, 0.05);
+            --shadow-dark: 0 28px 64px rgba(18, 16, 15, 0.18);
+            --radius-xl: 40px;
+            --radius-lg: 30px;
+            --radius-md: 24px;
         }
 
         html[data-lang="zh"] .lang-en,
@@ -31,23 +55,50 @@
 
         * { box-sizing: border-box; }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top, rgba(242,95,42,0.14), transparent 34%),
-                linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
-            line-height: 1.68;
+                radial-gradient(circle at top center, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.78) 20%, rgba(252,247,241,0.92) 56%, rgba(252,247,241,1) 100%),
+                var(--bg);
         }
 
         a { color: inherit; text-decoration: none; }
         button { font: inherit; }
 
+        a:focus-visible,
+        button:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid rgba(10,114,239,0.24);
+            outline-offset: 3px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: 18px;
+            top: -48px;
+            z-index: 30;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--action);
+            color: #fff;
+            font-weight: 700;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 18px;
+        }
+
         .page {
-            max-width: 1120px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 28px 20px 88px;
+            padding: 18px 20px 104px;
         }
 
         .nav {
@@ -55,14 +106,14 @@
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            margin-bottom: 20px;
+            padding: 4px 0 18px;
         }
 
         .brand {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 12px;
-            font-weight: 800;
+            font-weight: 700;
         }
 
         .brand-mark {
@@ -71,491 +122,967 @@
             border-radius: 14px;
             display: grid;
             place-items: center;
-            background: linear-gradient(180deg, #f57a49 0%, #dd5b2e 100%);
+            background: linear-gradient(180deg, #d77a50 0%, #bc5b33 100%);
             color: #fff;
             letter-spacing: 0.08em;
             font-size: 13px;
+            box-shadow: 0 14px 30px rgba(157,76,42,0.16);
+        }
+
+        .brand-copy {
+            display: grid;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .brand-tag {
+            font-size: 12px;
+            color: var(--text-soft);
+            font-weight: 600;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
             justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .nav-links {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
-        .nav-link,
-        .jump-link,
-        .pill {
-            padding: 10px 14px;
+        .nav-link {
+            min-height: 38px;
+            padding: 0 14px;
             border-radius: 999px;
             border: 1px solid var(--line);
             background: rgba(255,255,255,0.78);
-            color: #475467;
-            font-size: 14px;
+            color: rgba(23,19,17,0.8);
+            font-size: 13px;
             font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-link.is-current {
+            background: rgba(255,255,255,0.92);
+            color: var(--text);
+            box-shadow: var(--shadow-soft);
         }
 
         .lang-switch {
             display: inline-flex;
-            padding: 4px;
-            gap: 4px;
+            align-items: center;
+            gap: 2px;
+            padding: 3px;
             border-radius: 999px;
             border: 1px solid var(--line);
-            background: rgba(255,255,255,0.78);
+            background: rgba(255,255,255,0.76);
+            backdrop-filter: blur(12px);
         }
 
         .lang-button {
-            min-width: 54px;
-            height: 34px;
-            padding: 0 12px;
+            min-width: 50px;
+            height: 32px;
+            padding: 0 11px;
             border: 0;
             border-radius: 999px;
             background: transparent;
-            color: #667085;
+            color: var(--muted);
             cursor: pointer;
-            font-weight: 800;
-        }
-
-        .lang-button.is-active {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        .hero,
-        .card,
-        .detail,
-        .note {
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            background: var(--card);
-            box-shadow: 0 24px 48px rgba(15,23,42,0.08);
-        }
-
-        .hero {
-            padding: 34px;
-            margin-bottom: 18px;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: var(--accent-soft);
-            color: #b54708;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.04em;
-            margin-bottom: 18px;
-        }
-
-        h1 {
-            margin: 0 0 14px;
-            font-size: clamp(36px, 5vw, 62px);
-            line-height: 1.02;
-            letter-spacing: -0.05em;
-        }
-
-        .hero-copy {
-            max-width: 720px;
-            margin: 0 0 18px;
-            color: #475467;
-            font-size: 18px;
-        }
-
-        .hero-line {
-            margin: 0 0 22px;
-            color: #344054;
-            font-size: 15px;
             font-weight: 700;
         }
 
-        .hero-actions,
-        .row-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+        .lang-button.is-active {
+            background: var(--surface-strong);
+            color: var(--text);
+            box-shadow: var(--shadow-soft);
         }
 
-        .hero-copy,
-        .hero-line,
-        .section-copy,
-        .demo-copy,
-        .detail-copy,
-        .note p {
-            display: none;
+        .tools-main {
+            display: grid;
+            gap: 76px;
         }
 
-        .btn {
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+            gap: 40px;
+            align-items: start;
+            padding: 12px 0 0;
+        }
+
+        .eyebrow,
+        .section-kicker {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 46px;
-            padding: 0 18px;
+            min-height: 30px;
+            padding: 0 12px;
             border-radius: 999px;
+            background: var(--brand-soft);
+            color: var(--brand-strong);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .hero-title {
+            margin: 14px 0 0;
+            font-size: clamp(48px, 6vw, 82px);
+            line-height: 0.96;
+            letter-spacing: -0.06em;
+            font-weight: 720;
+            max-width: none;
+        }
+
+        .hero-title .lang-zh,
+        .hero-title .lang-en {
+            display: block;
+        }
+
+        .hero-title-line {
+            display: block;
+            white-space: nowrap;
+        }
+
+        .hero-copy {
+            max-width: 520px;
+            margin: 16px 0 0;
+            color: var(--text-soft);
+            font-size: clamp(17px, 1.5vw, 19px);
+            line-height: 1.72;
+            letter-spacing: 0;
+        }
+
+        .hero-copy strong {
+            color: var(--text);
+        }
+
+        html[data-lang="zh"] .hero-title {
+            max-width: 6.8ch;
+            font-size: clamp(46px, 5.5vw, 74px);
+            line-height: 1.04;
+            letter-spacing: -0.035em;
+        }
+
+        html[data-lang="zh"] .hero-title-line + .hero-title-line {
+            margin-top: 0.05em;
+        }
+
+        html[data-lang="zh"] .hero-copy {
+            max-width: 17em;
+            font-size: clamp(17px, 1.45vw, 19px);
+            line-height: 1.76;
+            letter-spacing: 0;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .btn {
+            min-height: 46px;
+            padding: 0 20px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             border: 1px solid transparent;
-            font-weight: 800;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
+            background: var(--action);
+            color: var(--action-text);
+            box-shadow: var(--shadow-soft);
         }
 
         .btn-secondary {
-            background: rgba(255,255,255,0.84);
+            background: rgba(255,255,255,0.86);
             color: var(--text);
             border-color: var(--line);
         }
 
-        .meta-row,
-        .jump-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .overview-grid,
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin-bottom: 18px;
-        }
-
-        .card {
-            display: block;
-            padding: 22px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(242,95,42,0.28);
-            box-shadow: 0 28px 56px rgba(15,23,42,0.10);
-        }
-
-        .card-kicker {
-            margin-bottom: 10px;
-            color: #98a2b3;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .card h2 {
-            margin: 0 0 10px;
-            font-size: 22px;
-            letter-spacing: -0.02em;
-        }
-
-        .card p,
-        .faq-card p,
-        .detail-copy,
-        .detail-list li,
-        .note p {
-            margin: 0;
-            color: #475467;
-            font-size: 15px;
-        }
-
-        .card-arrow {
-            margin-top: 14px;
-            color: #b54708;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .section {
-            margin-bottom: 18px;
-            scroll-margin-top: 100px;
-        }
-
-        .section-head {
-            margin-bottom: 14px;
-        }
-
-        .section-kicker {
-            margin-bottom: 8px;
-            color: #98a2b3;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .section-title {
-            margin: 0 0 8px;
-            font-size: clamp(28px, 4vw, 40px);
-            letter-spacing: -0.03em;
-        }
-
-        .section-copy {
-            margin: 0;
-            color: #667085;
-            font-size: 16px;
-        }
-
-        .detail {
-            padding: 24px;
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-            gap: 18px;
-            align-items: stretch;
-        }
-
-        .demo-panel {
-            min-height: 270px;
-            padding: 20px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.16);
-            background:
-                radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 24%),
-                linear-gradient(180deg, rgba(24,33,43,0.95) 0%, rgba(36,48,62,0.96) 100%);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .demo-panel::after {
-            content: "";
-            position: absolute;
-            inset: auto -20% -34% auto;
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: rgba(242,95,42,0.18);
-            filter: blur(4px);
-        }
-
-        .demo-top,
-        .demo-bottom {
-            position: relative;
-            z-index: 1;
-        }
-
-        .demo-badge {
+        .hero-link,
+        .text-link,
+        .minor-link {
             display: inline-flex;
             align-items: center;
-            min-height: 28px;
-            padding: 0 10px;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.10);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            color: var(--link);
+            font-size: 15px;
+            font-weight: 700;
         }
 
-        .demo-title {
-            margin: 0 0 6px;
-            font-size: 28px;
-            letter-spacing: -0.03em;
+        .hero-link::after,
+        .text-link::after,
+        .minor-link::after {
+            content: ">";
+            margin-left: 6px;
         }
 
-        .demo-copy {
-            margin: 0;
-            color: rgba(255,255,255,0.76);
-            font-size: 14px;
+        .hero-link {
+            margin-top: 12px;
         }
 
-        .demo-lines {
-            display: grid;
-            gap: 10px;
+        .hero-proof {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
             margin-top: 20px;
         }
 
-        .demo-line {
-            height: 12px;
+        .hero-proof span {
+            min-height: 34px;
+            padding: 0 12px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.12);
-            overflow: hidden;
-        }
-
-        .demo-line::after {
-            content: "";
-            display: block;
-            height: 100%;
-            border-radius: inherit;
-            background: linear-gradient(90deg, rgba(255,255,255,0.28), rgba(242,95,42,0.82));
-            animation: pulse 3.2s ease-in-out infinite;
-        }
-
-        .detail-side {
-            display: grid;
-            gap: 12px;
-        }
-
-        .detail-copy {
-            line-height: 1.7;
-        }
-
-        .detail-list {
-            display: grid;
-            gap: 10px;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-        .detail-list li {
-            padding: 13px 14px;
-            border-radius: 18px;
             border: 1px solid var(--line);
-            background: rgba(245,247,250,0.8);
+            background: rgba(255,255,255,0.56);
+            color: var(--text-soft);
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
         }
 
-        .delivery-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+        .hero-stage {
+            width: 100%;
+            max-width: 540px;
+            justify-self: end;
+            margin-top: 10px;
+            padding: 18px;
+            border-radius: 32px;
+            background: linear-gradient(180deg, #1a1512 0%, #231c18 100%);
+            border: 1px solid var(--dark-line);
+            box-shadow: 0 22px 48px rgba(18, 16, 15, 0.16);
+        }
+
+        .hero-stage-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 14px;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }
 
-        .delivery-stack {
+        .hero-stage-label {
+            color: var(--brand-soft);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-stage-note {
+            color: var(--dark-muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-stage-frame {
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #171311;
+        }
+
+        .hero-stage-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .section-head {
+            max-width: 620px;
+            margin-bottom: 22px;
+        }
+
+        .section-title {
+            margin: 14px 0 0;
+            font-size: clamp(30px, 4.2vw, 48px);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            font-weight: 720;
+        }
+
+        .section-copy {
+            margin: 12px 0 0;
+            color: var(--text-soft);
+            font-size: 16px;
+            line-height: 1.68;
+        }
+
+        html[data-lang="zh"] .section-title {
+            line-height: 1.06;
+            letter-spacing: -0.03em;
+        }
+
+        html[data-lang="zh"] .section-copy,
+        html[data-lang="zh"] .card-copy,
+        html[data-lang="zh"] .release-copy,
+        html[data-lang="zh"] .faq-copy,
+        html[data-lang="zh"] .contact-note,
+        html[data-lang="zh"] .step-copy {
+            line-height: 1.62;
+            letter-spacing: 0;
+        }
+
+        .features-grid,
+        .eligibility-grid,
+        .standalone-grid,
+        .release-grid,
+        .contact-grid {
             display: grid;
-            gap: 14px;
+            gap: 18px;
         }
 
-        .info-card,
-        .faq-card,
-        .note {
+        .features-grid,
+        .eligibility-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .release-grid {
+            grid-template-columns: minmax(320px, 0.84fr) minmax(0, 1.16fr);
+        }
+
+        .feature-card,
+        .eligibility-card,
+        .standalone-card,
+        .release-card,
+        .contact-card,
+        .faq-shell {
+            border-radius: 26px;
+            background: rgba(255,255,255,0.82);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-card,
+        .eligibility-card,
+        .standalone-card,
+        .release-card,
+        .contact-card {
             padding: 22px;
         }
 
-        .info-card,
-        .faq-card {
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            background: var(--card);
-            box-shadow: 0 20px 40px rgba(15,23,42,0.07);
+        .feature-visual {
+            height: 138px;
+            margin-bottom: 16px;
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(180deg, #fffdfb 0%, #f4ebe3 100%);
         }
 
-        .info-card h3,
-        .faq-card h3 {
-            margin: 0 0 10px;
-            font-size: 18px;
+        .feature-visual::before,
+        .feature-visual::after {
+            content: "";
+            position: absolute;
+            border-radius: 20px;
+        }
+
+        .feature-visual--message::before {
+            inset: 26px 26px auto;
+            height: 14px;
+            border-radius: 999px;
+            background: rgba(157,76,42,0.18);
+        }
+
+        .feature-visual--message::after {
+            inset: 58px 26px 26px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: inset 0 0 0 1px rgba(157,76,42,0.08);
+        }
+
+        .feature-visual--orders::before {
+            inset: 28px auto auto 28px;
+            width: 42%;
+            height: 114px;
+            background: rgba(23,19,15,0.05);
+        }
+
+        .feature-visual--orders::after {
+            inset: 28px 28px auto auto;
+            width: 30%;
+            height: 114px;
+            background: rgba(199,104,60,0.18);
+        }
+
+        .feature-visual--pricing::before {
+            inset: 28px 28px auto;
+            height: 14px;
+            border-radius: 999px;
+            background: rgba(157,76,42,0.16);
+        }
+
+        .feature-visual--pricing::after {
+            inset: 62px 28px 28px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: inset 0 0 0 1px rgba(157,76,42,0.08);
+        }
+
+        .card-kicker {
+            color: var(--brand-strong);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            margin: 14px 0 8px;
+            font-size: 26px;
+            line-height: 1.04;
+            letter-spacing: -0.04em;
+            font-weight: 700;
+        }
+
+        html[data-lang="zh"] .card-title,
+        html[data-lang="zh"] .contact-value {
+            line-height: 1.1;
             letter-spacing: -0.02em;
+        }
+
+        .card-copy,
+        .card-list li,
+        .contact-note,
+        .release-copy,
+        .faq-copy {
+            color: var(--text-soft);
+            font-size: 15px;
+            line-height: 1.66;
+        }
+
+        .card-copy,
+        .release-copy,
+        .faq-copy {
+            margin: 0;
+        }
+
+        .card-list {
+            display: grid;
+            gap: 8px;
+            padding: 0;
+            margin: 12px 0 0;
+            list-style: none;
+        }
+
+        .card-list li {
+            padding: 11px 13px;
+            border-radius: 18px;
+            background: var(--bg-soft);
+            border: 1px solid rgba(23,19,15,0.04);
+        }
+
+        .standalone-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .standalone-card {
+            display: block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .standalone-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-float);
+        }
+
+        .standalone-card.is-product {
+            background: linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(247,224,212,0.74) 100%);
+        }
+
+        .tool-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .tool-pill {
+            min-height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.72);
+            color: var(--text-soft);
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .standalone-card .text-link {
+            margin-top: 18px;
+        }
+
+        .eligibility-shell {
+            padding: 28px;
+            border-radius: 30px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(244,237,230,0.86) 100%);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .release-card--featured {
+            background: linear-gradient(180deg, #171311 0%, #211915 100%);
+            color: #fff;
+            border-color: var(--dark-line);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .release-card--featured .card-kicker,
+        .release-card--featured .release-copy {
+            color: var(--dark-muted);
+        }
+
+        .release-version {
+            margin: 16px 0 0;
+            font-size: clamp(48px, 6vw, 72px);
+            line-height: 0.94;
+            letter-spacing: -0.07em;
+            font-weight: 700;
+        }
+
+        .release-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .release-pill {
+            min-height: 36px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.86);
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .release-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .release-card--featured .btn-secondary {
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            border-color: rgba(255,255,255,0.16);
         }
 
         .step-list {
             display: grid;
-            gap: 10px;
-            margin-top: 14px;
+            gap: 12px;
+            margin-top: 18px;
         }
 
         .step {
             display: grid;
-            grid-template-columns: 34px 1fr;
-            gap: 10px;
+            grid-template-columns: 40px 1fr;
+            gap: 14px;
             align-items: start;
         }
 
         .step-index {
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background: var(--brand-soft);
+            color: var(--brand-strong);
             display: grid;
             place-items: center;
-            background: var(--accent-soft);
-            color: #b54708;
-            font-weight: 800;
-            font-size: 13px;
+            font-size: 15px;
+            font-weight: 700;
         }
 
         .step-copy {
             padding-top: 6px;
-            color: #475467;
-            font-size: 15px;
-        }
-
-        .faq-grid {
-            margin-top: 14px;
-        }
-
-        .note strong {
-            display: block;
-            margin-bottom: 6px;
+            color: var(--text-soft);
             font-size: 16px;
+            line-height: 1.55;
+        }
+
+        .faq-shell {
+            padding: 8px;
+        }
+
+        .faq-item + .faq-item {
+            margin-top: 10px;
+        }
+
+        .faq-item {
+            border-radius: 20px;
+            background: rgba(255,255,255,0.88);
+            border: 1px solid var(--line);
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: "+";
+            color: var(--brand-strong);
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .faq-item[open] summary::after {
+            content: "-";
+        }
+
+        .faq-body {
+            padding: 0 22px 22px;
+        }
+
+        .contact-band {
+            padding: 34px;
+            border-radius: 34px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(244,237,230,0.88) 100%);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .contact-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .contact-label {
+            color: var(--brand-strong);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            display: block;
+            margin-top: 12px;
+            font-size: 28px;
+            line-height: 1.04;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+        }
+
+        .contact-note {
+            margin-top: 10px;
+        }
+
+        .minor-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 22px;
         }
 
         footer {
-            margin-top: 26px;
+            margin-top: 34px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-stack {
+            display: grid;
+            gap: 14px;
+            justify-items: center;
             text-align: center;
+        }
+
+        .footer-copyright {
             color: var(--muted);
             font-size: 13px;
+            line-height: 1.6;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-12%); opacity: 0.8; }
-            50% { transform: translateX(12%); opacity: 1; }
+        .footer-contacts {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        @media (max-width: 920px) {
-            .overview-grid,
-            .faq-grid,
-            .detail-grid,
-            .delivery-grid {
+        .footer-contact {
+            display: grid;
+            gap: 6px;
+            min-width: 176px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.78);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .footer-contact-label {
+            color: var(--brand-strong);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .footer-contact-value {
+            font-size: 15px;
+            line-height: 1.4;
+            font-weight: 700;
+            color: var(--text-main, var(--ink));
+        }
+
+        @media (max-width: 1080px) {
+            .hero,
+            .features-grid,
+            .eligibility-grid,
+            .standalone-grid,
+            .release-grid,
+            .contact-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                max-width: none;
             }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 720px) {
             .page {
-                padding: 18px 14px 64px;
+                padding: 14px 14px 72px;
             }
 
             .nav {
-                align-items: flex-start;
                 flex-direction: column;
+                align-items: flex-start;
             }
 
             .nav-right {
-                width: 100%;
                 justify-content: flex-start;
+                width: 100%;
             }
 
-            .hero,
-            .card,
-            .detail,
-            .info-card,
-            .faq-card,
-            .note {
-                padding: 20px;
+            .tools-main {
+                gap: 52px;
+            }
+
+            .hero {
+                gap: 20px;
+                padding-top: 8px;
+            }
+
+            .footer-contacts {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .footer-contact {
+                width: 100%;
+            }
+
+            .hero-title {
+                font-size: clamp(36px, 12vw, 50px);
+            }
+
+            .section-title {
+                font-size: clamp(28px, 9vw, 38px);
+                line-height: 1.04;
+            }
+
+            .hero-copy,
+            .section-copy {
+                font-size: 15px;
+                line-height: 1.68;
+            }
+
+            html[data-lang="zh"] .hero-title {
+                font-size: clamp(32px, 10vw, 42px);
+                line-height: 1.08;
+            }
+
+            html[data-lang="zh"] .section-title {
+                font-size: clamp(28px, 8.8vw, 38px);
+                line-height: 1.08;
+            }
+
+            html[data-lang="zh"] .hero-copy,
+            html[data-lang="zh"] .section-copy,
+            html[data-lang="zh"] .card-copy,
+            html[data-lang="zh"] .release-copy,
+            html[data-lang="zh"] .faq-copy,
+            html[data-lang="zh"] .contact-note,
+            html[data-lang="zh"] .step-copy {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            .hero-proof {
+                margin-top: 22px;
+                gap: 8px;
+            }
+
+            .hero-proof span {
+                min-height: 34px;
+                padding: 0 12px;
+                font-size: 13px;
+            }
+
+            .hero-stage,
+            .eligibility-shell,
+            .eligibility-card,
+            .release-card,
+            .faq-shell,
+            .contact-band,
+            .contact-card {
+                padding: 16px;
+            }
+
+            .feature-card {
+                display: grid;
+                grid-template-columns: 82px minmax(0, 1fr);
+                gap: 12px 14px;
+                align-items: start;
+                padding: 16px;
+            }
+
+            .feature-card .feature-visual {
+                grid-column: 1;
+                grid-row: 1 / span 4;
+                height: 82px;
+                margin: 0;
+                border-radius: 18px;
+            }
+
+            .feature-card .feature-visual::before {
+                inset: 16px 16px auto;
+                height: 10px;
+            }
+
+            .feature-card .feature-visual::after {
+                inset: 34px 16px 16px;
+            }
+
+            .feature-card .feature-visual--orders::before {
+                inset: 16px auto auto 16px;
+                width: 40%;
+                height: 50px;
+            }
+
+            .feature-card .feature-visual--orders::after {
+                inset: 16px 16px auto auto;
+                width: 28%;
+                height: 50px;
+            }
+
+            .feature-card .feature-visual--pricing::before {
+                inset: 16px 16px auto;
+                height: 10px;
+            }
+
+            .feature-card .feature-visual--pricing::after {
+                inset: 34px 16px 16px;
+            }
+
+            .feature-card .card-kicker,
+            .feature-card .card-title,
+            .feature-card .card-copy,
+            .feature-card .card-list {
+                grid-column: 2;
+            }
+
+            .feature-card .card-title {
+                margin: 2px 0 6px;
+                font-size: 24px;
+            }
+
+            .feature-card .card-list {
+                margin-top: 8px;
+                gap: 6px;
+            }
+
+            .feature-card .card-list li {
+                padding: 9px 11px;
+            }
+
+            .step {
+                grid-template-columns: 34px 1fr;
+                gap: 12px;
+            }
+
+            .step-index {
+                width: 34px;
+                height: 34px;
+                font-size: 14px;
+            }
+
+            .step-copy {
+                padding-top: 4px;
+                font-size: 15px;
+                line-height: 1.5;
+            }
+
+            .faq-item summary {
+                padding: 18px;
+                font-size: 18px;
+            }
+
+            .faq-body {
+                padding: 0 18px 18px;
+            }
+
+            .minor-links {
+                gap: 12px;
             }
         }
     </style>
+    <script src="./release-loader.js" defer></script>
     <script src="/assets/site.js" defer></script>
 </head>
 <body>
+    <a class="skip-link" href="#main">
+        <span class="lang-zh">跳到内容</span>
+        <span class="lang-en">Skip to content</span>
+    </a>
     <div class="page">
-        <nav class="nav">
+        <nav class="nav" aria-label="Primary">
             <div class="brand">
                 <div class="brand-mark">BY</div>
-                <div>
-                    <div style="font-size:16px;">Bangyin Tools</div>
-                    <div style="font-size:12px;color:#667085;font-weight:600;">
-                        <span class="lang-zh">插件与工作台</span>
-                        <span class="lang-en">Plugin and Workbench</span>
-                    </div>
+                <div class="brand-copy">
+                    <div class="brand-name">Bangyin Tools</div>
+                    <div class="brand-tag">ASM Assistant</div>
                 </div>
             </div>
             <div class="nav-right">
@@ -576,690 +1103,543 @@
                         <span class="lang-zh">Solo</span>
                         <span class="lang-en">Solo</span>
                     </a>
+                    <a class="nav-link is-current" href="/tools/" aria-current="page">
+                        <span class="lang-zh">工具</span>
+                        <span class="lang-en">Tools</span>
+                    </a>
                 </div>
                 <div class="lang-switch" aria-label="language switch">
-                    <button class="lang-button" data-lang-trigger="zh">中文</button>
-                    <button class="lang-button" data-lang-trigger="en">EN</button>
+                    <button class="lang-button" type="button" data-lang-trigger="zh">中文</button>
+                    <button class="lang-button" type="button" data-lang-trigger="en">EN</button>
                 </div>
             </div>
         </nav>
 
-        <section class="hero">
-            <div class="eyebrow">Bangyin Tools</div>
-            <h1>
-                <span class="lang-zh">插件 3 模块已上线，Listing 工作台开发中。</span>
-                <span class="lang-en">Three plugin modules are live. Listing workbench is in build.</span>
-            </h1>
-            <p class="hero-copy">
-                <span class="lang-zh">消息、订单、定价已经可交付。Listing 生成将作为独立网页工具开放。</span>
-                <span class="lang-en">Messages, orders, and pricing are live. Listing generation will ship as a separate web tool.</span>
-            </p>
-            <p class="hero-line">
-                <span class="lang-zh">Seller serves seller.</span>
-                <span class="lang-en">Seller serves seller.</span>
-            </p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">
-                    <span class="lang-zh">下载 0.7.7</span>
-                    <span class="lang-en">Download 0.7.7</span>
-                </a>
-                <a class="btn btn-secondary" href="#rights">
-                    <span class="lang-zh">看权益</span>
-                    <span class="lang-en">Access</span>
-                </a>
-                <a class="btn btn-secondary" href="#delivery">
-                    <span class="lang-zh">安装</span>
-                    <span class="lang-en">Install</span>
-                </a>
-            </div>
-        </section>
-
-        <div class="meta-row">
-            <div class="pill">Version 0.7.7</div>
-            <div class="pill">
-                <span class="lang-zh">Chrome 插件</span>
-                <span class="lang-en">Chrome Extension</span>
-            </div>
-            <div class="pill">
-                <span class="lang-zh">邀请制</span>
-                <span class="lang-en">Invite Only</span>
-            </div>
-            <div class="pill">
-                <span class="lang-zh">一机一授权</span>
-                <span class="lang-en">One Device</span>
-            </div>
-            <div class="pill">
-                <span class="lang-zh">Listing 工作台开发中</span>
-                <span class="lang-en">Listing workbench in build</span>
-            </div>
-        </div>
-
-        <div class="jump-bar">
-            <a class="jump-link" href="#message">
-                <span class="lang-zh">消息</span>
-                <span class="lang-en">Message</span>
-            </a>
-            <a class="jump-link" href="#orders">
-                <span class="lang-zh">订单</span>
-                <span class="lang-en">Orders</span>
-            </a>
-            <a class="jump-link" href="#pricing">
-                <span class="lang-zh">定价</span>
-                <span class="lang-en">Pricing</span>
-            </a>
-            <a class="jump-link" href="#listing">
-                <span class="lang-zh">Listing</span>
-                <span class="lang-en">Listing</span>
-            </a>
-            <a class="jump-link" href="#rights">
-                <span class="lang-zh">权益</span>
-                <span class="lang-en">Access</span>
-            </a>
-            <a class="jump-link" href="#delivery">
-                <span class="lang-zh">下载与安装</span>
-                <span class="lang-en">Delivery</span>
-            </a>
-            <a class="jump-link" href="#faq">
-                <span class="lang-zh">FAQ</span>
-                <span class="lang-en">FAQ</span>
-            </a>
-            <a class="jump-link" href="#contact">
-                <span class="lang-zh">联系</span>
-                <span class="lang-en">Contact</span>
-            </a>
-        </div>
-
-        <section class="overview-grid">
-            <a class="card" href="#message">
-                <div class="card-kicker">Module 01</div>
-                <h2>
-                    <span class="lang-zh">消息</span>
-                    <span class="lang-en">Message</span>
-                </h2>
-                <p>
-                    <span class="lang-zh">读取上下文，生成建议回复，人工确认发送。</span>
-                    <span class="lang-en">Read context, draft a reply, keep manual send.</span>
-                </p>
-                <div class="card-arrow">
-                    <span class="lang-zh">查看详情</span>
-                    <span class="lang-en">View details</span>
+        <main id="main" class="tools-main">
+            <section class="hero">
+                <div>
+                    <div class="eyebrow">
+                        <span class="lang-zh">ASM Assistant</span>
+                        <span class="lang-en">ASM Assistant</span>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="lang-zh">
+                            <span class="hero-title-line">把 Etsy 里的</span>
+                            <span class="hero-title-line">重复动作做快</span>
+                        </span>
+                        <span class="lang-en">
+                            <span class="hero-title-line">Speed up the</span>
+                            <span class="hero-title-line">repetitive work.</span>
+                        </span>
+                    </h1>
+                    <p class="hero-copy">
+                        <span class="lang-zh">消息、订单、定价已上线。<strong>先看资格，再下载。</strong></span>
+                        <span class="lang-en">Messages, orders, and pricing are live. <strong>Check access first, then download.</strong></span>
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#contact">
+                            <span class="lang-zh">申请开通</span>
+                            <span class="lang-en">Request access</span>
+                        </a>
+                        <a class="btn btn-secondary" href="#eligibility">
+                            <span class="lang-zh">查看资格</span>
+                            <span class="lang-en">Check access</span>
+                        </a>
+                    </div>
+                    <a class="hero-link" href="/tools/releases/asm-assistant-0.7.43.zip" data-release-download-link>
+                        <span class="lang-zh" data-release-qualified-download-text="zh">我已有资格，下载 0.7.43</span>
+                        <span class="lang-en" data-release-qualified-download-text="en">I already qualify, download 0.7.43</span>
+                    </a>
+                    <div class="hero-proof" aria-label="Highlights">
+                        <span>
+                            <span class="lang-zh">内部与学员可用</span>
+                            <span class="lang-en">Internal and student users</span>
+                        </span>
+                        <span>
+                            <span class="lang-zh">3 个模块已上线</span>
+                            <span class="lang-en">3 modules live</span>
+                        </span>
+                        <span>
+                            <span class="lang-zh">Chrome 插件</span>
+                            <span class="lang-en">Chrome extension</span>
+                        </span>
+                    </div>
                 </div>
-            </a>
-            <a class="card" href="#orders">
-                <div class="card-kicker">Module 02</div>
-                <h2>
-                    <span class="lang-zh">订单</span>
-                    <span class="lang-en">Orders</span>
-                </h2>
-                <p>
-                    <span class="lang-zh">抓当前页订单，识别新旧状态，进入工作流。</span>
-                    <span class="lang-en">Sync current page orders and separate new from existing.</span>
-                </p>
-                <div class="card-arrow">
-                    <span class="lang-zh">查看详情</span>
-                    <span class="lang-en">View details</span>
-                </div>
-            </a>
-            <a class="card" href="#pricing">
-                <div class="card-kicker">Module 03</div>
-                <h2>
-                    <span class="lang-zh">定价</span>
-                    <span class="lang-en">Pricing</span>
-                </h2>
-                <p>
-                    <span class="lang-zh">拆竞对，算利润，再反推自己的售价。</span>
-                    <span class="lang-en">Break down competitors, estimate margin, price your own listing.</span>
-                </p>
-                <div class="card-arrow">
-                    <span class="lang-zh">查看详情</span>
-                    <span class="lang-en">View details</span>
-                </div>
-            </a>
-            <a class="card" href="#listing">
-                <div class="card-kicker">Web Tool</div>
-                <h2>
-                    <span class="lang-zh">Listing 工作台</span>
-                    <span class="lang-en">Listing Workbench</span>
-                </h2>
-                <p>
-                    <span class="lang-zh">独立网页工具，负责模板、资料库、竞对参考与批量生成。</span>
-                    <span class="lang-en">Separate web tool for templates, product knowledge, competitor references, and batch generation.</span>
-                </p>
-                <div class="card-arrow">
-                    <span class="lang-zh">查看规划</span>
-                    <span class="lang-en">View plan</span>
-                </div>
-            </a>
-        </section>
 
-        <section class="section" id="message">
-            <div class="section-head">
-                <div class="section-kicker">Message</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">消息处理</span>
-                    <span class="lang-en">Message Handling</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">围绕“知道客户在说什么，并快速回到可发送状态”。</span>
-                    <span class="lang-en">Built around understanding the buyer and getting back to a send-ready draft fast.</span>
-                </p>
-            </div>
-            <div class="detail">
-                <div class="detail-grid">
-                    <div class="demo-panel">
-                        <div class="demo-top">
-                            <div class="demo-badge">GIF 01</div>
-                            <div class="demo-lines">
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                            </div>
+                <div class="hero-stage">
+                    <div class="hero-stage-head">
+                        <div class="hero-stage-label">
+                            <span class="lang-zh">插件预览</span>
+                            <span class="lang-en">Plugin preview</span>
                         </div>
-                        <div class="demo-bottom">
-                            <h3 class="demo-title">
-                                <span class="lang-zh">消息工作流</span>
-                                <span class="lang-en">Message Flow</span>
-                            </h3>
-                            <p class="demo-copy">
-                                <span class="lang-zh">读取对话、中文理解、建议回复、人工发送。</span>
-                                <span class="lang-en">Read thread, understand intent, draft reply, send manually.</span>
-                            </p>
+                        <div class="hero-stage-note">
+                            <span class="lang-zh">消息 / 订单 / 定价</span>
+                            <span class="lang-en">Messages / Orders / Pricing</span>
                         </div>
                     </div>
-                    <div class="detail-side">
-                        <p class="detail-copy">
-                            <span class="lang-zh">打开对话后，插件读取历史上下文与待回复内容，再给出可修改的建议回复。</span>
-                            <span class="lang-en">After a thread is opened, the extension reads context and pending buyer messages, then generates an editable draft.</span>
+                    <div class="hero-stage-frame">
+                        <img src="/assets/tools-product-surface.svg" alt="" aria-hidden="true">
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-head">
+                    <div class="section-kicker">
+                        <span class="lang-zh">插件能力</span>
+                        <span class="lang-en">Capabilities</span>
+                    </div>
+                    <h2 class="section-title">
+                        <span class="lang-zh">插件里现在能做什么</span>
+                        <span class="lang-en">What the extension handles now</span>
+                    </h2>
+                    <p class="section-copy">
+                        <span class="lang-zh">ASM Assistant 先覆盖这 3 个高频动作。</span>
+                        <span class="lang-en">ASM Assistant currently covers these three frequent tasks.</span>
+                    </p>
+                </div>
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <div class="feature-visual feature-visual--message"></div>
+                        <div class="card-kicker">Module 01</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">消息处理</span>
+                            <span class="lang-en">Message handling</span>
+                        </h3>
+                        <p class="card-copy">
+                            <span class="lang-zh">识别待回复，生成回复建议。</span>
+                            <span class="lang-en">Detect pending threads and draft suggested replies.</span>
                         </p>
-                        <ul class="detail-list">
+                        <ul class="card-list">
                             <li>
-                                <span class="lang-zh">只建议，不自动发送。</span>
-                                <span class="lang-en">Draft only. No auto-send.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">支持中文补充意见后重生成。</span>
-                                <span class="lang-en">Rewrite again from Chinese feedback.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">优先处理待回复消息，不丢历史上下文。</span>
-                                <span class="lang-en">Prioritize pending messages without losing context.</span>
+                                <span class="lang-zh">支持中文补充重写</span>
+                                <span class="lang-en">Supports rewrite from Chinese notes</span>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    </article>
 
-        <section class="section" id="orders">
-            <div class="section-head">
-                <div class="section-kicker">Orders</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">订单同步</span>
-                    <span class="lang-en">Order Sync</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">围绕“当前页订单是否已经入库”。</span>
-                    <span class="lang-en">Built around whether the current page order is already in the system.</span>
-                </p>
-            </div>
-            <div class="detail">
-                <div class="detail-grid">
-                    <div class="demo-panel">
-                        <div class="demo-top">
-                            <div class="demo-badge">GIF 02</div>
-                            <div class="demo-lines">
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                            </div>
-                        </div>
-                        <div class="demo-bottom">
-                            <h3 class="demo-title">
-                                <span class="lang-zh">订单识别</span>
-                                <span class="lang-en">Order Check</span>
-                            </h3>
-                            <p class="demo-copy">
-                                <span class="lang-zh">当前页订单、新订单数量、已入库数量。</span>
-                                <span class="lang-en">Current page count, new orders, and already-synced orders.</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="detail-side">
-                        <p class="detail-copy">
-                            <span class="lang-zh">打开订单页后，插件抓取当前页数据，并把“新订单”和“已入库”分开显示。</span>
-                            <span class="lang-en">Once the order page is open, the extension reads the current page and separates new orders from already-synced ones.</span>
+                    <article class="feature-card">
+                        <div class="feature-visual feature-visual--orders"></div>
+                        <div class="card-kicker">Module 02</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">订单同步</span>
+                            <span class="lang-en">Order sync</span>
+                        </h3>
+                        <p class="card-copy">
+                            <span class="lang-zh">识别新单，去重后同步。</span>
+                            <span class="lang-en">Detect new orders and sync them after deduplication.</span>
                         </p>
-                        <ul class="detail-list">
+                        <ul class="card-list">
                             <li>
-                                <span class="lang-zh">按当前店铺隔离数据。</span>
-                                <span class="lang-en">Store-level data isolation.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">同步前先做订单号校验。</span>
-                                <span class="lang-en">Check order numbers before sync.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">更适合进入飞书与后台工作流。</span>
-                                <span class="lang-en">Ready for Feishu and back-office workflow.</span>
+                                <span class="lang-zh">按店铺隔离</span>
+                                <span class="lang-en">Keeps counts isolated by store</span>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    </article>
 
-        <section class="section" id="pricing">
-            <div class="section-head">
-                <div class="section-kicker">Pricing</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">定价工具</span>
-                    <span class="lang-en">Pricing Tool</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">围绕“竞对赚多少，我该怎么定”。</span>
-                    <span class="lang-en">Built around how much the competitor makes and how you should price.</span>
-                </p>
-            </div>
-            <div class="detail">
-                <div class="detail-grid">
-                    <div class="demo-panel">
-                        <div class="demo-top">
-                            <div class="demo-badge">GIF 03</div>
-                            <div class="demo-lines">
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                            </div>
-                        </div>
-                        <div class="demo-bottom">
-                            <h3 class="demo-title">
-                                <span class="lang-zh">定价拆解</span>
-                                <span class="lang-en">Pricing Breakdown</span>
-                            </h3>
-                            <p class="demo-copy">
-                                <span class="lang-zh">价格、折扣、运费、利润、汇率。</span>
-                                <span class="lang-en">Price, discount, shipping, margin, and FX.</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="detail-side">
-                        <p class="detail-copy">
-                            <span class="lang-zh">打开竞对 Listing 后，抓价格结构，再去算竞对利润和自己的可行定价。</span>
-                            <span class="lang-en">Open a competitor listing, capture its pricing structure, then estimate competitor margin and your own viable price.</span>
+                    <article class="feature-card">
+                        <div class="feature-visual feature-visual--pricing"></div>
+                        <div class="card-kicker">Module 03</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">定价支持</span>
+                            <span class="lang-en">Pricing support</span>
+                        </h3>
+                        <p class="card-copy">
+                            <span class="lang-zh">拆解竞对，快速测算售价。</span>
+                            <span class="lang-en">Break down competitors and estimate price quickly.</span>
                         </p>
-                        <ul class="detail-list">
+                        <ul class="card-list">
                             <li>
-                                <span class="lang-zh">支持逆向定价与正向定价。</span>
-                                <span class="lang-en">Supports reverse and forward pricing.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">比较折扣、毛利、运费与竞争差距。</span>
-                                <span class="lang-en">Compare discounts, margin, shipping, and competitive gap.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">适合多国家、多币种场景。</span>
-                                <span class="lang-en">Fits multi-country and multi-currency setups.</span>
+                                <span class="lang-zh">减少手动试算</span>
+                                <span class="lang-en">Reduces manual trial calculations</span>
                             </li>
                         </ul>
-                    </div>
+                    </article>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section" id="listing">
-            <div class="section-head">
-                <div class="section-kicker">Listing</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">Listing 工作台</span>
-                    <span class="lang-en">Listing Workbench</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">不塞进插件，单独做成网页工作台。</span>
-                    <span class="lang-en">Built as a separate web workbench, not inside the plugin.</span>
-                </p>
-            </div>
-            <div class="detail">
-                <div class="detail-grid">
-                    <div class="demo-panel">
-                        <div class="demo-top">
-                            <div class="demo-badge">Web Tool</div>
-                            <div class="demo-lines">
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                                <div class="demo-line"></div>
-                            </div>
-                        </div>
-                        <div class="demo-bottom">
-                            <h3 class="demo-title">
-                                <span class="lang-zh">Listing 生成</span>
-                                <span class="lang-en">Listing Creation</span>
-                            </h3>
-                            <p class="demo-copy">
-                                <span class="lang-zh">模板、资料库、竞对参考、批量生成。</span>
-                                <span class="lang-en">Templates, knowledge base, competitor references, batch generation.</span>
-                            </p>
-                        </div>
+            <section>
+                <div class="section-head">
+                    <div class="section-kicker">
+                        <span class="lang-zh">更多工具</span>
+                        <span class="lang-en">More tools</span>
                     </div>
-                    <div class="detail-side">
-                        <ul class="detail-list">
+                    <h2 class="section-title">
+                        <span class="lang-zh">还有这些直达工具</span>
+                        <span class="lang-en">Direct tools for specific jobs</span>
+                    </h2>
+                    <p class="section-copy">
+                        <span class="lang-zh">遇到具体问题，直接进页面，不需要先装插件。</span>
+                        <span class="lang-en">Open these pages directly when you need a specific job done.</span>
+                    </p>
+                </div>
+                <div class="standalone-grid">
+                    <a class="standalone-card is-product" href="/tools/etsy-feasibility/">
+                        <div class="card-kicker">Product</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">产品可做性</span>
+                            <span class="lang-en">Product feasibility</span>
+                        </h3>
+                        <p class="card-copy">
+                            <span class="lang-zh">先看 Etsy 合规，再看物流能不能发。</span>
+                            <span class="lang-en">Check Etsy compliance first, then shipping feasibility.</span>
+                        </p>
+                        <div class="tool-pills" aria-hidden="true">
+                            <span class="tool-pill">
+                                <span class="lang-zh">关键词</span>
+                                <span class="lang-en">Keywords</span>
+                            </span>
+                            <span class="tool-pill">
+                                <span class="lang-zh">图片</span>
+                                <span class="lang-en">Images</span>
+                            </span>
+                            <span class="tool-pill">
+                                <span class="lang-zh">建议动作</span>
+                                <span class="lang-en">Next action</span>
+                            </span>
+                        </div>
+                        <ul class="card-list">
                             <li>
-                                <span class="lang-zh">维护模板库、产品资料库和固定参数。</span>
-                                <span class="lang-en">Maintain templates, product knowledge, and fixed attributes.</span>
+                                <span class="lang-zh">适合上架前先筛。</span>
+                                <span class="lang-en">Use it to screen products before launch.</span>
                             </li>
                             <li>
-                                <span class="lang-zh">支持竞对链接参考，不把生成逻辑塞回插件。</span>
-                                <span class="lang-en">Use competitor references without forcing the workflow into the plugin.</span>
-                            </li>
-                            <li>
-                                <span class="lang-zh">目标是批量生成与后续编辑，不是一次只出一条。</span>
-                                <span class="lang-en">Built for batch generation and editing, not single-output drafting.</span>
+                                <span class="lang-zh">结果分成合规、物流、建议动作。</span>
+                                <span class="lang-en">Results are split into compliance, shipping, and action.</span>
                             </li>
                         </ul>
-                    </div>
+                        <span class="text-link">
+                            <span class="lang-zh">打开产品工具</span>
+                            <span class="lang-en">Open the product tool</span>
+                        </span>
+                    </a>
+
+                    <a class="standalone-card" href="/tools/appeal/">
+                        <div class="card-kicker">Appeal</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">店铺申诉草稿</span>
+                            <span class="lang-en">Appeal draft</span>
+                        </h3>
+                        <p class="card-copy">
+                            <span class="lang-zh">把事实整理成能直接提交的申诉材料。</span>
+                            <span class="lang-en">Turn facts into a directly usable appeal package.</span>
+                        </p>
+                        <ul class="card-list">
+                            <li>
+                                <span class="lang-zh">支持分段生成。</span>
+                                <span class="lang-en">Generates section by section.</span>
+                            </li>
+                            <li>
+                                <span class="lang-zh">改完就能复制提交。</span>
+                                <span class="lang-en">Edit and copy the result immediately.</span>
+                            </li>
+                        </ul>
+                        <span class="text-link">
+                            <span class="lang-zh">打开申诉工具</span>
+                            <span class="lang-en">Open the appeal tool</span>
+                        </span>
+                    </a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section" id="rights">
-            <div class="section-head">
-                <div class="section-kicker">Access</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">使用权益</span>
-                    <span class="lang-en">Access</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">先看清能用什么、能用多久，再决定要不要开通。</span>
-                    <span class="lang-en">Know what is included and for how long before activation.</span>
-                </p>
-            </div>
-
-            <div class="faq-grid">
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">开放范围</span>
+            <section id="eligibility" class="eligibility-shell">
+                <div class="section-head">
+                    <div class="section-kicker">
+                        <span class="lang-zh">资格</span>
                         <span class="lang-en">Eligibility</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">所有软件仅限有合作历史的朋友购买与使用。当前不对外公开开放。</span>
-                        <span class="lang-en">All software is limited to people with prior collaboration history. It is not publicly open.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">服务期内陪跑学员</span>
-                        <span class="lang-en">Active Coaching</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">免费使用期限为服务剩余时间 + 1 个月。现有软件与后续新开发的软件，统一按这个标准执行。</span>
-                        <span class="lang-en">Free access lasts through the remaining coaching term plus one extra month. The same rule applies to current and future software.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">历史陪跑学员</span>
-                        <span class="lang-en">Past Coaching</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">即使陪跑服务已经到期，仍保留 1 个月免费使用期。后续如需继续使用，再单独开通。</span>
-                        <span class="lang-en">Even after coaching ends, one extra free month remains available. Continued access can be opened separately afterward.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">课程学员</span>
-                        <span class="lang-en">Course Students</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">这里的课程学员，指仅购买了我们课程的学员。默认提供 15 天体验期，用来完成安装、激活和基础上手。</span>
-                        <span class="lang-en">Course students here means users who purchased our course only. A 15-day trial is included for setup, activation, and basic onboarding.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">体验期规则</span>
-                        <span class="lang-en">Trial Rule</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">各类学员统一提供 15 天体验期。该体验规则同样适用于后续新开发的软件，且不对外开放。</span>
-                        <span class="lang-en">All student groups receive a unified 15-day trial. The same rule also applies to future software and is not public.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">当前交付范围</span>
-                        <span class="lang-en">Current Scope</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">插件当前稳定交付消息、订单、定价。Listing 工作台单独开放，不并入当前插件。</span>
-                        <span class="lang-en">The stable plugin currently includes messages, orders, and pricing. The Listing workbench will be opened separately, not folded into the plugin.</span>
-                    </p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section" id="delivery">
-            <div class="section-head">
-                <div class="section-kicker">Delivery</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">下载、版本、安装</span>
-                    <span class="lang-en">Download, Version, Installation</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">这里就是正式入口。</span>
-                    <span class="lang-en">This is the formal delivery entry.</span>
-                </p>
-            </div>
-
-            <div class="delivery-grid">
-                <div class="info-card">
-                    <h3>
-                        <span class="lang-zh">当前版本</span>
-                        <span class="lang-en">Current Release</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">版本号：0.7.7</span>
-                        <span class="lang-en">Version: 0.7.7</span>
-                    </p>
-                    <div class="meta-row" style="margin-top:16px;margin-bottom:16px;">
-                        <div class="pill">ASM Assistant</div>
-                        <div class="pill">ZIP</div>
-                        <div class="pill">
-                            <span class="lang-zh">手动安装</span>
-                            <span class="lang-en">Manual Install</span>
-                        </div>
                     </div>
-                    <div class="row-actions">
-                        <a class="btn btn-primary" href="./releases/asm-assistant-0.7.7.zip">
-                            <span class="lang-zh">下载 ZIP</span>
-                            <span class="lang-en">Download ZIP</span>
-                        </a>
-                        <a class="btn btn-secondary" href="#faq">
-                            <span class="lang-zh">看 FAQ</span>
-                            <span class="lang-en">View FAQ</span>
-                        </a>
-                    </div>
+                    <h2 class="section-title">
+                        <span class="lang-zh">谁可以申请</span>
+                        <span class="lang-en">Who can request access</span>
+                    </h2>
+                    <p class="section-copy">
+                        <span class="lang-zh">符合下面任一身份，就可以申请。</span>
+                        <span class="lang-en">If you match any of the groups below, you can request access.</span>
+                    </p>
                 </div>
-
-                <div class="delivery-stack">
-                    <div class="info-card">
-                        <h3>
-                            <span class="lang-zh">适用环境</span>
-                            <span class="lang-en">Compatibility</span>
+                <div class="eligibility-grid">
+                    <article class="eligibility-card">
+                        <div class="card-kicker">Internal</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">内部协作</span>
+                            <span class="lang-en">Internal collaboration</span>
                         </h3>
-                        <p>
-                            <span class="lang-zh">Chrome / Etsy 页面 / 单设备授权。</span>
-                            <span class="lang-en">Chrome / Etsy pages / single-device authorization.</span>
+                        <p class="card-copy">
+                            <span class="lang-zh">按协作范围开通。</span>
+                            <span class="lang-en">Activated according to the collaboration scope.</span>
                         </p>
-                    </div>
-                    <div class="info-card">
-                        <h3>
-                            <span class="lang-zh">授权方式</span>
-                            <span class="lang-en">Activation</span>
+                    </article>
+
+                    <article class="eligibility-card">
+                        <div class="card-kicker">Coaching</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">陪跑学员</span>
+                            <span class="lang-en">Coaching students</span>
                         </h3>
-                        <p>
-                            <span class="lang-zh">激活码 + 当前设备。</span>
-                            <span class="lang-en">Activation code + current device.</span>
+                        <p class="card-copy">
+                            <span class="lang-zh">服务期 + 1 个月。</span>
+                            <span class="lang-en">Coaching term plus one month.</span>
                         </p>
-                    </div>
+                    </article>
+
+                    <article class="eligibility-card">
+                        <div class="card-kicker">Course</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">课程学员</span>
+                            <span class="lang-en">Course students</span>
+                        </h3>
+                        <p class="card-copy">
+                            <span class="lang-zh">默认 15 天体验。</span>
+                            <span class="lang-en">Default 15-day trial.</span>
+                        </p>
+                    </article>
                 </div>
-            </div>
+            </section>
 
-            <div class="info-card">
-                <h3>
-                    <span class="lang-zh">安装步骤</span>
-                    <span class="lang-en">Install Steps</span>
-                </h3>
-                <div class="step-list">
-                    <div class="step">
-                        <div class="step-index">1</div>
-                        <div class="step-copy">
-                            <span class="lang-zh">下载 `asm-assistant-0.7.7.zip` 并解压。</span>
-                            <span class="lang-en">Download `asm-assistant-0.7.7.zip` and unzip it.</span>
-                        </div>
+            <section>
+                <div class="section-head">
+                    <div class="section-kicker">
+                        <span class="lang-zh">下载</span>
+                        <span class="lang-en">Release</span>
                     </div>
-                    <div class="step">
-                        <div class="step-index">2</div>
-                        <div class="step-copy">
-                            <span class="lang-zh">打开 Chrome 扩展管理页，开启开发者模式。</span>
-                            <span class="lang-en">Open Chrome extensions and turn on Developer mode.</span>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-index">3</div>
-                        <div class="step-copy">
-                            <span class="lang-zh">点击“加载已解压的扩展程序”，选择解压后的目录。</span>
-                            <span class="lang-en">Click “Load unpacked” and select the unzipped folder.</span>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-index">4</div>
-                        <div class="step-copy">
-                            <span class="lang-zh">打开插件，输入激活码，完成授权。</span>
-                            <span class="lang-en">Open the extension, enter the activation code, and finish activation.</span>
-                        </div>
-                    </div>
+                    <h2 class="section-title">
+                        <span class="lang-zh">确认资格后下载</span>
+                        <span class="lang-en">Download after access is confirmed</span>
+                    </h2>
+                    <p class="section-copy">
+                        <span class="lang-zh">当前版本和安装方法都在这里。</span>
+                        <span class="lang-en">The current version and install steps live here.</span>
+                    </p>
                 </div>
-            </div>
-        </section>
+                <div class="release-grid">
+                    <article class="release-card release-card--featured">
+                        <div class="card-kicker">Current Release</div>
+                        <div class="release-version" data-release-version>0.7.43</div>
+                        <p class="release-copy" style="margin-top:16px;">
+                            <span class="lang-zh" data-release-version-label="zh">版本号：0.7.43</span>
+                            <span class="lang-en" data-release-version-label="en">Version: 0.7.43</span>
+                        </p>
+                        <p class="release-copy" style="margin-top:14px;">
+                            <span class="lang-zh">当前可下载版本以这里为准。</span>
+                            <span class="lang-en">This is the current downloadable build.</span>
+                        </p>
+                        <ul class="card-list" data-release-notes style="margin-top: 18px;">
+                            <li>从历史对话中提炼已确认的产品信息和回复经验。</li>
+                            <li>后续自动回复会更稳地参考过往知识，不只看当前一轮消息。</li>
+                            <li>订单同步首次先绑定店铺，再配置飞书，学员安装路径更清晰。</li>
+                        </ul>
+                        <div class="release-pills">
+                            <div class="release-pill">ASM Assistant</div>
+                            <div class="release-pill">ZIP</div>
+                            <div class="release-pill">
+                                <span class="lang-zh">手动安装</span>
+                                <span class="lang-en">Manual install</span>
+                            </div>
+                        </div>
+                        <div class="release-actions">
+                            <a class="btn btn-primary" href="/tools/releases/asm-assistant-0.7.43.zip" data-release-download-link>
+                                <span class="lang-zh" data-release-download-text="zh">下载 0.7.43</span>
+                                <span class="lang-en" data-release-download-text="en">Download 0.7.43</span>
+                            </a>
+                            <a class="btn btn-secondary" href="#contact">
+                                <span class="lang-zh">联系开通</span>
+                                <span class="lang-en">Request access</span>
+                            </a>
+                        </div>
+                    </article>
 
-        <section class="section" id="faq">
-            <div class="section-head">
-                <div class="section-kicker">FAQ</div>
-                <h2 class="section-title">FAQ</h2>
-                <p class="section-copy">
-                    <span class="lang-zh">常见问题放在这里。</span>
-                    <span class="lang-en">Common questions live here.</span>
-                </p>
-            </div>
+                    <article class="release-card">
+                        <div class="card-kicker">Install</div>
+                        <h3 class="card-title">
+                            <span class="lang-zh">安装和激活</span>
+                            <span class="lang-en">Install and activate</span>
+                        </h3>
+                        <p class="release-copy">
+                            <span class="lang-zh">当前支持 Chrome，按单设备授权。</span>
+                            <span class="lang-en">Currently supports Chrome with single-device authorization.</span>
+                        </p>
+                        <div class="step-list">
+                            <div class="step">
+                                <div class="step-index">1</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh" data-release-filename-step="zh">下载 `asm-assistant-0.7.43.zip` 并解压。</span>
+                                    <span class="lang-en" data-release-filename-step="en">Download `asm-assistant-0.7.43.zip` and unzip it.</span>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-index">2</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh">打开 Chrome 扩展管理页，开启开发者模式。</span>
+                                    <span class="lang-en">Open Chrome extensions and enable Developer mode.</span>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-index">3</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh">点击“加载已解压的扩展程序”，选择目录。</span>
+                                    <span class="lang-en">Click “Load unpacked” and select the folder.</span>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-index">4</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh">打开插件，输入激活码。</span>
+                                    <span class="lang-en">Open the extension and enter the activation code.</span>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-index">5</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh">如果要用订单同步，先准备飞书多维表链接和飞书授权码。</span>
+                                    <span class="lang-en">If you need order sync, prepare the Feishu table link and Feishu auth code first.</span>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-index">6</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh">第一次先打开 Etsy Sold Orders 页面，同步一次当前订单页完成店铺绑定。</span>
+                                    <span class="lang-en">Open Etsy Sold Orders and sync the current page once to bind the shop for the first time.</span>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-index">7</div>
+                                <div class="step-copy">
+                                    <span class="lang-zh">绑定完成后，再填写飞书表链接和飞书授权码。</span>
+                                    <span class="lang-en">After the shop is bound, fill in the Feishu table link and auth code.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-            <div class="faq-grid">
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">谁可以使用？</span>
-                        <span class="lang-en">Who can use it?</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">邀请制。默认不对外公开。</span>
-                        <span class="lang-en">Invite only. Not publicly open by default.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">消息会自动发送吗？</span>
-                        <span class="lang-en">Will it auto-send messages?</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">不会。插件只生成建议回复，最终发送由人工完成。</span>
-                        <span class="lang-en">No. It drafts suggestions only. Final send stays manual.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">授权是怎么生效的？</span>
-                        <span class="lang-en">How does activation work?</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">一套激活码绑定当前设备，后台按模块控制可见性和到期时间。</span>
-                        <span class="lang-en">One activation code is tied to the current device. Feature visibility and expiry are controlled per module from the backend.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">为什么没有调研模块？</span>
-                        <span class="lang-en">Why no research module?</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">当前稳定插件只保留消息、订单、定价。研究与 Listing 相关能力会独立成网页工具。</span>
-                        <span class="lang-en">The stable plugin keeps only messages, orders, and pricing. Research and listing-related work will live as separate web tools.</span>
-                    </p>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">后续会继续更新吗？</span>
-                        <span class="lang-en">Will it keep updating?</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">会。版本会持续迭代，下载入口也会放在这里。</span>
-                        <span class="lang-en">Yes. New versions will keep shipping, and this page remains the download entry.</span>
-                    </p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section" id="contact">
-            <div class="section-head">
-                <div class="section-kicker">Contact</div>
-                <h2 class="section-title">
-                    <span class="lang-zh">联系</span>
-                    <span class="lang-en">Contact</span>
-                </h2>
-                <p class="section-copy">
-                    <span class="lang-zh">需要购买、开通或继续沟通，就从这里进入。</span>
-                    <span class="lang-en">Use these channels for purchase, activation, or further discussion.</span>
-                </p>
-            </div>
-
-            <div class="faq-grid">
-                <article class="faq-card">
-                    <h3>X</h3>
-                    <p>
-                        <span class="lang-zh">个人动态、公开输出、更新记录。</span>
-                        <span class="lang-en">Personal updates, public writing, and release notes.</span>
-                    </p>
-                    <div class="row-actions" style="margin-top:14px;">
-                        <a class="btn btn-secondary" href="https://x.com/richbangyin" target="_blank" rel="noreferrer">x.com/richbangyin</a>
+            <section>
+                <div class="section-head">
+                    <div class="section-kicker">
+                        <span class="lang-zh">FAQ</span>
+                        <span class="lang-en">FAQ</span>
                     </div>
-                </article>
-                <article class="faq-card">
-                    <h3>
-                        <span class="lang-zh">邮箱</span>
-                        <span class="lang-en">Email</span>
-                    </h3>
-                    <p>
-                        <span class="lang-zh">课程、工具、授权与合作咨询。</span>
-                        <span class="lang-en">For course, tools, activation, and collaboration inquiries.</span>
+                    <h2 class="section-title">
+                        <span class="lang-zh">常见问题</span>
+                        <span class="lang-en">Common questions</span>
+                    </h2>
+                    <p class="section-copy">
+                        <span class="lang-zh">先把最常见的疑问说清。</span>
+                        <span class="lang-en">These are the most common questions before using it.</span>
                     </p>
-                    <div class="row-actions" style="margin-top:14px;">
-                        <a class="btn btn-secondary" href="mailto:rich@bangyin.me">rich@bangyin.me</a>
-                    </div>
-                </article>
-            </div>
-        </section>
+                </div>
+                <div class="faq-shell">
+                    <details class="faq-item">
+                        <summary>
+                            <span class="lang-zh">会自动发送吗？</span>
+                            <span class="lang-en">Will it auto-send?</span>
+                        </summary>
+                        <div class="faq-body">
+                            <p class="faq-copy">
+                                <span class="lang-zh">不会，你来发。</span>
+                                <span class="lang-en">No, you send it yourself.</span>
+                            </p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span class="lang-zh">怎么授权？</span>
+                            <span class="lang-en">How does activation work?</span>
+                        </summary>
+                        <div class="faq-body">
+                            <p class="faq-copy">
+                                <span class="lang-zh">一机一码。</span>
+                                <span class="lang-en">One device, one code.</span>
+                            </p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span class="lang-zh">谁能用？</span>
+                            <span class="lang-en">Who can use it?</span>
+                        </summary>
+                        <div class="faq-body">
+                            <p class="faq-copy">
+                                <span class="lang-zh">内部和符合条件的学员。</span>
+                                <span class="lang-en">Internal users and eligible students.</span>
+                            </p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span class="lang-zh">订单同步还要准备什么？</span>
+                            <span class="lang-en">What else is needed for order sync?</span>
+                        </summary>
+                        <div class="faq-body">
+                            <p class="faq-copy">
+                                <span class="lang-zh">除了插件激活码，还要准备飞书多维表链接和飞书授权码。第一次要先在 Etsy Sold Orders 页面同步一次当前订单页，完成店铺绑定后再填飞书配置。</span>
+                                <span class="lang-en">Besides the extension activation code, you also need the Feishu table link and auth code. The first step is syncing the current Etsy Sold Orders page once to bind the shop, then fill in the Feishu settings.</span>
+                            </p>
+                        </div>
+                    </details>
+                </div>
+            </section>
 
-        <section class="note">
-            <strong>
-                <span class="lang-zh">Bangyin Tools</span>
-                <span class="lang-en">Bangyin Tools</span>
-            </strong>
-            <p>
-                <span class="lang-zh">稳定插件先交付消息、订单、定价。Listing 工作台继续开发。</span>
-                <span class="lang-en">The stable plugin ships messages, orders, and pricing first. The Listing workbench continues in development.</span>
-            </p>
-        </section>
+            <section class="contact-band" id="contact">
+                <div class="section-head">
+                    <div class="section-kicker">
+                        <span class="lang-zh">联系</span>
+                        <span class="lang-en">Contact</span>
+                    </div>
+                    <h2 class="section-title">
+                        <span class="lang-zh">想开通，先发使用场景</span>
+                        <span class="lang-en">If you want access, send the usage context first</span>
+                    </h2>
+                    <p class="section-copy">
+                        <span class="lang-zh">告诉我们你的身份、店铺和准备怎么用。</span>
+                        <span class="lang-en">Tell us who you are, which shop you run, and how you plan to use it.</span>
+                    </p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-label">WeChat</div>
+                        <span class="contact-value">richbangin</span>
+                        <div class="contact-note">
+                            <span class="lang-zh">适合讨论开通、资格和协作安排。</span>
+                            <span class="lang-en">Best for access, eligibility, and coordination.</span>
+                        </div>
+                    </div>
+                    <a class="contact-card" href="mailto:rich@bangyin.me">
+                        <div class="contact-label">Email</div>
+                        <span class="contact-value">rich@bangyin.me</span>
+                        <div class="contact-note">
+                            <span class="lang-zh">适合购买、授权和合作需求。</span>
+                            <span class="lang-en">Useful for purchase, licensing, and collaboration requests.</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="minor-links">
+                    <a class="minor-link" href="/tools/etsy-feasibility/">
+                        <span class="lang-zh">产品工具：可做性判断</span>
+                        <span class="lang-en">Product tool: Feasibility</span>
+                    </a>
+                    <a class="minor-link" href="https://solo.bangyin.me" target="_blank" rel="noreferrer">
+                        <span class="lang-zh">公开内容看 Solo</span>
+                        <span class="lang-en">Public updates in Solo</span>
+                    </a>
+                </div>
+            </section>
+        </main>
 
         <footer>
-            <div>Bangyin Tools</div>
-            <div style="margin-top:8px;">© 2026 Bangyin. All rights reserved.</div>
+            <div class="footer-stack">
+                <div class="footer-copyright">2026 邦印 All Rights Reserved</div>
+                <div class="footer-contacts" aria-label="联系方式">
+                    <div class="footer-contact">
+                        <span class="footer-contact-label">公众号</span>
+                        <span class="footer-contact-value">邦印成长日记</span>
+                    </div>
+                    <div class="footer-contact">
+                        <span class="footer-contact-label">个人微信</span>
+                        <span class="footer-contact-value">richbangin</span>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
 </body>

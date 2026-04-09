@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Bangyin Mark</title>
+  <desc id="desc">Rounded orange square with the letters BY.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f57a49"/>
+      <stop offset="100%" stop-color="#dd5b2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="34" fill="url(#bg)"/>
+  <text x="64" y="73" text-anchor="middle" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="38" font-weight="800" letter-spacing="4" fill="#ffffff">BY</text>
+</svg>

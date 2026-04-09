@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Bangyin Tools Card</title>
+  <desc id="desc">Social sharing card for Bangyin tools page.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbf8f3"/>
+      <stop offset="100%" stop-color="#f5ecde"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f57a49"/>
+      <stop offset="100%" stop-color="#dd5b2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1060" cy="140" r="190" fill="#fff0e8"/>
+  <rect x="90" y="86" width="110" height="110" rx="28" fill="url(#accent)"/>
+  <text x="145" y="152" text-anchor="middle" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="40" font-weight="800" letter-spacing="4" fill="#ffffff">BY</text>
+  <text x="232" y="146" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="800" fill="#17212b">Bangyin Tools</text>
+  <text x="96" y="292" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="72" font-weight="800" fill="#17212b">ASM Assistant</text>
+  <text x="96" y="376" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="64" font-weight="800" fill="#17212b">给 Etsy 卖家的运营插件</text>
+  <text x="96" y="454" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="28" fill="#475467">消息、订单、定价已上线，适用于内部与学员用户。</text>
+  <rect x="96" y="500" width="290" height="56" rx="28" fill="#ef5a29"/>
+  <text x="241" y="536" text-anchor="middle" font-family="Avenir Next, PingFang SC, Microsoft YaHei, sans-serif" font-size="26" font-weight="800" fill="#ffffff">bangyin.me/tools</text>
+</svg>

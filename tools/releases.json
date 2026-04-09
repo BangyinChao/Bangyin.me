@@ -1,14 +1,13 @@
 {
   "product": "ASM Assistant",
   "channel": "stable",
-  "latestVersion": "0.7.7",
-  "latestReleaseDate": "2026-03-30",
-  "downloadUrl": "/tools/releases/asm-assistant-0.7.7.zip",
+  "latestVersion": "0.7.43",
+  "latestReleaseDate": "2026-04-09",
+  "downloadUrl": "/tools/releases/asm-assistant-0.7.43.zip",
   "notes": [
-    "插件头部新增授权状态与截止时间显示",
-    "明确区分本地页面读取与云端 AI / 飞书能力",
-    "远端设备授权失败时不再是无提示状态",
-    "继续保持人工确认发送的安全边界"
+    "从历史对话中提炼已确认的产品信息和回复经验",
+    "后续自动回复会更稳地参考过往知识，不只看当前一轮消息",
+    "订单同步首次先绑定店铺，再配置飞书，学员安装路径更清晰"
   ],
   "modules": [
     "messages",
@@ -16,6 +15,18 @@
     "pricing"
   ],
   "releases": [
+    {
+      "version": "0.7.43",
+      "date": "2026-04-09",
+      "downloadUrl": "/tools/releases/asm-assistant-0.7.43.zip",
+      "summary": "当前推荐给学员使用的稳定版本"
+    },
+    {
+      "version": "0.7.10",
+      "date": "2026-04-01",
+      "downloadUrl": "/tools/releases/asm-assistant-0.7.10.zip",
+      "summary": "当前推荐给内部学员使用的稳定版本"
+    },
     {
       "version": "0.7.7",
       "date": "2026-03-30",
